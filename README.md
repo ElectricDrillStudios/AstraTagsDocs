@@ -1,4 +1,4 @@
-# Astra {{PACKAGE_NAME}} Docs
+# Astra Tags Docs
 
 This is the public documentation repository for an Astra Unity package. It contains authored documentation, the public release lock, and the publishing workflow; it never contains private package source code or generated site output.
 

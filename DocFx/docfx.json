@@ -23,13 +23,13 @@
     "template": ["default", "modern"],
     "disableGitFeatures": true,
     "globalMetadata": {
-      "_appName": "{{TITLE}}",
-      "_appTitle": "{{TITLE}}",
+      "_appName": "Astra Tags",
+      "_appTitle": "Astra Tags",
       "_appLogoPath": "DocFx/images/astra-logo.svg",
       "_enableSearch": true,
       "_enableBreadcrumb": true,
       "_disableContribution": true,
-      "_baseUrl": "{{PAGES_URL}}"
+      "_baseUrl": "https://electricdrillstudios.github.io/AstraTagsDocs/"
     },
     "xref": [],
     "styles": ["DocFx/styles/astra.css"]
