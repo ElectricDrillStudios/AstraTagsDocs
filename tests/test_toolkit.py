@@ -18,6 +18,7 @@ from astra_docs import (  # noqa: E402
     configure_new_repository,
     ensure_github_authentication,
     parser,
+    source_path_or_repository_root,
     wait_for_template_checkout,
 )
 
@@ -62,10 +63,10 @@ class ToolkitTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as temporary:
             repository = Path(temporary) / "docs"
             shutil.copytree(TEMPLATE, repository, ignore=shutil.ignore_patterns("__pycache__"))
-            configure_new_repository(repository, Namespace(package_name="Health", package_id="com.electricdrill.astra-health", assembly="ElectricDrill.Astra.Health.Runtime", namespace="ElectricDrill.Astra.Health", source_repo="Cis8/AstraHealth", source_path="Packages/com.electricdrill.astra-health", ref="main", title=None, owner="ElectricDrillStudios"))
-            self.assertIn("Astra Health", (repository / "DocFx/docfx.json").read_text(encoding="utf-8"))
+            configure_new_repository(repository, Namespace(package_name="Tags", package_id="individual.emanuele-cisotto.astra-tags", assembly="com.electricdrill.astra-tags.Runtime", namespace="ElectricDrill.AstraTags", source_repo="Cis8/AstraTags", source_path=".", ref="main", title=None, owner="ElectricDrillStudios"))
+            self.assertIn("Astra Tags", (repository / "DocFx/docfx.json").read_text(encoding="utf-8"))
             self.assertNotIn("{{PACKAGE_NAME}}", (repository / "README.md").read_text(encoding="utf-8"))
-            self.assertIn("https://electricdrillstudios.github.io/AstraHealthDocs/", (repository / "astra-docs.json").read_text(encoding="utf-8"))
+            self.assertIn("https://electricdrillstudios.github.io/AstraTagsDocs/", (repository / "astra-docs.json").read_text(encoding="utf-8"))
 
     def test_wait_for_template_checkout_fetches_then_checks_out_main(self) -> None:
         with tempfile.TemporaryDirectory() as temporary:
@@ -101,6 +102,10 @@ class ToolkitTests(unittest.TestCase):
         ])
         self.assertTrue(args.resume)
         self.assertIsNone(args.unity_path)
+
+    def test_omitted_source_path_uses_the_package_repository_root(self) -> None:
+        self.assertEqual(source_path_or_repository_root(None), ".")
+        self.assertEqual(source_path_or_repository_root("Packages/com.electricdrill.astra-health"), "Packages/com.electricdrill.astra-health")
 
     def test_github_login_runs_only_when_needed(self) -> None:
         with patch("astra_docs.subprocess.run", return_value=subprocess.CompletedProcess([], 1)) as process, patch("astra_docs.run") as command:

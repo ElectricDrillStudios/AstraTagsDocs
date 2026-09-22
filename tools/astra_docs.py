@@ -21,6 +21,7 @@ TOKEN_NAME = "ASTRA_SOURCE_READ_TOKEN"
 DEFAULT_OWNER = "ElectricDrillStudios"
 DEFAULT_TEMPLATE = f"{DEFAULT_OWNER}/AstraDocsTemplate"
 TEMPLATE_BRANCH = "main"
+DEFAULT_SOURCE_PATH = "."
 
 
 def run(*args: str, cwd: Path | None = None, secret: bool = False) -> None:
@@ -112,6 +113,11 @@ def repository_name(name: str) -> str:
     if not re.fullmatch(r"[A-Za-z][A-Za-z0-9]*", name):
         raise ValueError("package name must be PascalCase letters/digits (for example Health)")
     return f"Astra{name}Docs"
+
+
+def source_path_or_repository_root(value: str | None) -> str:
+    """Use the repository root when the private repository is one Unity package."""
+    return value or DEFAULT_SOURCE_PATH
 
 
 def read_config(root: Path) -> dict[str, str]:
@@ -293,8 +299,8 @@ def parser() -> argparse.ArgumentParser:
 
 def main() -> int:
     args = parser().parse_args()
-    if getattr(args, "command", None) == "new" and not args.source_path:
-        args.source_path = f"Packages/{args.package_id}"
+    if getattr(args, "command", None) == "new":
+        args.source_path = source_path_or_repository_root(args.source_path)
     try:
         args.handler(args)
     except (LockfileError, ValueError, OSError, RuntimeError, subprocess.CalledProcessError) as error:

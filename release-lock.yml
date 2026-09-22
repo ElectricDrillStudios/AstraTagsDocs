@@ -2,11 +2,11 @@
 version: 1
 package:
   id: individual.emanuele-cisotto.astra-tags
-  assembly: ASSEMBLY_NAME_FROM_THE_ASMDEF
-  namespace: REAL_CSHARP_NAMESPACE
+  assembly: com.electricdrill.astra-tags.Runtime
+  namespace: ElectricDrill.AstraTags
   source:
     repository: Cis8/AstraTags
-    path: Packages/individual.emanuele-cisotto.astra-tags
+    path: .
     files: Runtime/**/*.cs
     ref: main
 dependencies: []
