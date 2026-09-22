@@ -46,6 +46,7 @@ class ToolkitTests(unittest.TestCase):
             config.write_text('{"schema": 1, "package_name": "Health", "title": "Astra Health", "pages_url": "https://electricdrill.github.io/AstraHealthDocs/"}\n', encoding="utf-8")
             subprocess.run([sys.executable, "tools/astra_docs.py", "sync", "--apply", "--template-ref", "v1.0.0", "--template-path", str(source)], cwd=repository, check=True)
             lock_before = (repository / "release-lock.yml").read_text(encoding="utf-8")
+            self.assertIn("Astra Tags", (repository / "index.md").read_text(encoding="utf-8"))
             notes = repository / "guide.md"
             notes.write_text("keep me\n", encoding="utf-8")
             readme = repository / "README.md"
@@ -66,6 +67,7 @@ class ToolkitTests(unittest.TestCase):
             configure_new_repository(repository, Namespace(package_name="Tags", package_id="individual.emanuele-cisotto.astra-tags", assembly="com.electricdrill.astra-tags.Runtime", namespace="ElectricDrill.AstraTags", source_repo="Cis8/AstraTags", source_path=".", ref="main", title=None, owner="ElectricDrillStudios"))
             self.assertIn("Astra Tags", (repository / "DocFx/docfx.json").read_text(encoding="utf-8"))
             self.assertNotIn("{{PACKAGE_NAME}}", (repository / "README.md").read_text(encoding="utf-8"))
+            self.assertIn("Astra Tags", (repository / "index.md").read_text(encoding="utf-8"))
             self.assertIn("https://electricdrillstudios.github.io/AstraTagsDocs/", (repository / "astra-docs.json").read_text(encoding="utf-8"))
 
     def test_wait_for_template_checkout_fetches_then_checks_out_main(self) -> None:
