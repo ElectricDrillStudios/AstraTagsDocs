@@ -37,7 +37,7 @@ jobs:
           persist-credentials: false
       - name: Validate lock and build the public site
         run: >-
-          python .astra-host/tools/build_docs.py
+          python3 .astra-host/tools/build_docs.py
           --lock release-lock.yml
           --docs-root "$GITHUB_WORKSPACE"
           --host-root "$GITHUB_WORKSPACE/.astra-host"
