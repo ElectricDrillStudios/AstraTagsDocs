@@ -13,7 +13,7 @@
   ],
   "build": {
     "content": [
-      { "files": ["**/*.{md,yml}"], "exclude": ["_site/**", ".astra-workspace/**"] },
+      { "files": ["**/*.{md,yml}"], "exclude": ["_site/**", ".astra-workspace/**", "README.md", "CLAUDE.md", "AGENTS.md", "context/**"] },
       { "files": ["api/toc.yml"] }
     ],
     "resource": [

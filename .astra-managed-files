@@ -2,6 +2,10 @@
 .github/workflows/publish-docs.yml
 .gitignore
 LICENSE
+CLAUDE.md
+AGENTS.md
+context/style-guide.md
+context/source-reference.md
 index.md
 DocFx/docfx.json
 DocFx/filterConfig.yml

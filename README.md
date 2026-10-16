@@ -90,6 +90,16 @@ python3 tools/astra_docs.py sync --check --template-ref v1.0.0
 python3 tools/astra_docs.py sync --apply --template-ref v1.0.0
 ```
 
-`sync` updates only the paths listed in `.astra-managed-files`. It preserves authored Markdown, images, `release-lock.yml`, and `astra-docs.json`.
+`sync` updates only the paths listed in `.astra-managed-files`. It preserves package-authored Markdown, images, `release-lock.yml`, and `astra-docs.json`; the landing page, navigation, and logo listed in the manifest are template-managed. Shared AI instructions are also template-managed, as described below.
 
 Local, source-only DocFX previews are useful for experimentation, but release publications always use `Cis8/AstraPublishingHost` on the protected runner.
+
+## Documentation instructions for AI agents
+
+[CLAUDE.md](CLAUDE.md) is the entry point for Claude Code. [AGENTS.md](AGENTS.md) directs other agents to the same instructions. Before authoring documentation, agents must read [the style guide](context/style-guide.md); before describing package behavior, they must also read [the source reference](context/source-reference.md).
+
+The shared instructions preserve the Astra documentation conventions: English documentation, Italian conversations with maintainers, and consistent DocFX formatting. They are included in new repositories and updated by `sync --apply`.
+
+Keep package-specific terminology, source checkout hints, and reference pages in [context/package-notes.md](context/package-notes.md). This file is included in new repositories and preserved by sync. Existing repositories may create it when needed; its absence is allowed. Package notes supplement the shared style rules. Do not store credentials or machine-specific private paths in committed notes.
+
+This operational README, the instruction files, and `context/` are versioned in the public repository but excluded from the generated documentation site. No Copilot-specific instruction file is required.
