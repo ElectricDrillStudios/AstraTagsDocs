@@ -1,8 +1,8 @@
 # Integrating custom tagged assets
 
-Implement [ITagged](xref:ElectricDrill.AstraTags.ITagged) to expose a custom object's tags to Astra Tags editor tools. The interface requires one getter, `TagSet Tags { get; }`. A serialized backing field stores the assignments; the getter returns that same set so the tools can read and edit it.
+Implement [`ITagged`](xref:ElectricDrill.AstraTags.ITagged) to expose a custom object's tags to Astra Tags editor tools. The interface requires one getter, `TagSet Tags { get; }`. A serialized backing field stores the assignments; the getter returns that same set so the tools can read and edit it.
 
-Let's create an ability asset and a component that both use this contract. They store authored categories directly. For reference-counted gameplay states, use [TagContainer](xref:ElectricDrill.AstraTags.TagContainer) instead.
+Let's create an ability asset and a component that both use this contract. They store authored categories directly. For reference-counted gameplay states, use [`TagContainer`](xref:ElectricDrill.AstraTags.TagContainer) instead.
 
 ## Before starting
 
@@ -12,7 +12,7 @@ Save the scripts below in your project's runtime scripts folder, outside any `Ed
 
 A registry is not required to store direct tag asset references or implement `ITagged`. Keep the [package configuration](package-configuration.md) current for the editor catalog and other registry-dependent features.
 
-## Create a tagged ScriptableObject
+## Create a tagged `ScriptableObject`
 
 Save this script as `AbilityDefinition.cs`:
 
@@ -51,7 +51,7 @@ The header's **+** opens the hierarchical tag picker. Alternatively, use **+ Add
 
 ## Add tags to a component
 
-Use a MonoBehaviour when the assignments belong to a GameObject rather than a shared definition asset. Save this script as `TaggedObject.cs`:
+Use a `MonoBehaviour` when the assignments belong to a `GameObject` rather than a shared definition asset. Save this script as `TaggedObject.cs`:
 
 ```csharp
 using ElectricDrill.AstraTags;
@@ -65,12 +65,12 @@ public sealed class TaggedObject : MonoBehaviour, ITagged
 }
 ```
 
-1. Add `TaggedObject` to a scene GameObject and select that GameObject
+1. Add `TaggedObject` to a scene `GameObject` and select that `GameObject`
 2. Expand the component's **Tags** field, add an entry, and assign `Burn`
 3. Save the scene to persist the component's assignment
-4. To create a tagged project asset, save the GameObject as a prefab under `Assets`; verify the assignment on the saved prefab
+4. To create a tagged project asset, save the `GameObject` as a prefab under `Assets`; verify the assignment on the saved prefab
 
-The component field remains editable through its property drawer. The interactive pill bar appears in the **GameObject header**, rather than each component header. It uses the first `ITagged` component returned by `GetComponent<ITagged>()` on that GameObject. It does not merge several components or inspect children for that bar. Select a child GameObject to edit its own header tags, or use the relevant component's **Tags** field.
+The component field remains editable through its property drawer. The interactive pill bar appears in the `GameObject` header, rather than each component header. It uses the first `ITagged` component returned by `GetComponent<ITagged>()` on that `GameObject`. It does not merge several components or inspect children for that bar. Select a child `GameObject` to edit its own header tags, or use the relevant component's **Tags** field.
 
 Prefab indexing has a broader scope: it collects assignments from all `ITagged` components in the saved prefab hierarchy, including inactive children. A tag on a child can therefore make the prefab appear as a match even when the root's header does not display it.
 
@@ -78,9 +78,9 @@ Prefab indexing has a broader scope: it collects assignments from all `ITagged` 
 
 | Edited object | Assignment storage |
 |---|---|
-| `FireAbility` ScriptableObject asset | Its serialized `_tags` field; every reference to that asset shares those assignments |
+| `FireAbility` `ScriptableObject` asset | Its serialized `_tags` field; every reference to that asset shares those assignments |
 | Component in a saved prefab | The component's serialized field in the prefab asset |
-| Component on a scene GameObject | The component's serialized field in the scene; edits on prefab instances can be instance overrides |
+| Component on a scene `GameObject` | The component's serialized field in the scene; edits on prefab instances can be instance overrides |
 
 The editor index is a lookup cache, and the registry catalogs tag definitions. Neither replaces the owning object's serialized set. Save the owning asset, prefab, or scene after authoring changes. Play-mode mutations are not a save system, and an unsaved runtime object is not a project asset that the index can discover.
 
@@ -92,13 +92,13 @@ A serialized `TagSet` field alone gives a type the field drawer. A non-component
 
 | Object or asset | Discovery scope |
 |---|---|
-| Main ScriptableObject asset implementing `ITagged` | Reads the set returned by that asset's getter |
+| Main `ScriptableObject` asset implementing `ITagged` | Reads the set returned by that asset's getter |
 | Saved prefab | Combines assignments from `ITagged` components throughout its hierarchy; records a prefab-level result |
-| ScriptableObject sub-assets or nested serializable objects | Not traversed independently; the reader loads the main asset and does not enumerate all sub-assets or nested fields |
-| Scene GameObjects | No live per-GameObject index; scene-file coverage depends on **Scan Closed Scenes** |
+| `ScriptableObject` sub-assets or nested serializable objects | Not traversed independently; the reader loads the main asset and does not enumerate all sub-assets or nested fields |
+| Scene `GameObject` instances | No live per-`GameObject` index; scene-file coverage depends on **Scan Closed Scenes** |
 | Saved scene with **Scan Closed Scenes** enabled | Records direct tag-asset dependencies as scene-level matches, without opening the scene or attributing tags to objects; these dependencies are not limited to `ITagged` assignments |
 
-**Scan Closed Scenes** is off by default in `Project Settings > Astra Tags`, under **Editor Index**. Enabling it does not turn the index into a runtime-object search. Use the main ScriptableObject asset for the discovery check below.
+**Scan Closed Scenes** is off by default in `Project Settings > Astra Tags`, under **Editor Index**. Enabling it does not turn the index into a runtime-object search. Use the main `ScriptableObject` asset for the discovery check below.
 
 ### Check the saved asset in the Tag Manager
 

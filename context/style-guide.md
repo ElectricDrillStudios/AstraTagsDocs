@@ -40,6 +40,8 @@
 | File, folder, asset, and package paths | `` `inline code` `` | `Packages/com.electricdrill.astra-package-name/Runtime` |
 | Version availability tags | `*🏷️ Version X.Y.Z+*` or inline `(🏷️*vX.Y.Z+*)` | `(🏷️*v1.4.0+*)` |
 
+- Apply inline code to programmatic identifiers in prose, headings, tables, and link labels, including Unity types such as `ScriptableObject` and `MonoBehaviour`
+- When an identifier is linked, put the backticks inside the link label: `` [`GameTagSO`](xref:ElectricDrill.AstraTags.GameTagSO) ``; keep the destination outside the code span
 - Do not combine bold and inline code for the same token
 - Use the exact casing used by Unity, the package, or the source code
 
@@ -52,7 +54,7 @@
 | Same-file anchor | `[Title](#anchor)` | `[Game Event Generators](#game-event-generators)` |
 | Other file in the same documentation folder | `[Text](filename.md)` | `[Samples](samples.md)` |
 | Other file + anchor | `[Text](filename.md#anchor)` | `[Understanding Stat Modifier Types](workflows.md#understanding-stat-modifier-types)` |
-| API xref | `[TypeName](xref:Namespace.TypeName)` | `[TypeName](xref:Namespace.TypeName)` |
+| API xref | `` [`TypeName`](xref:Namespace.TypeName) `` | `` [`GameTagSO`](xref:ElectricDrill.AstraTags.GameTagSO) `` |
 | External URL | Plain URL when appropriate, or standard markdown link when readability benefits | `https://discord.gg/nJVRMkGrZg` |
 
 - Prefer a local cross-reference over repeating a full explanation

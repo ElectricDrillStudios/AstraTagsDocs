@@ -129,8 +129,8 @@ After creating the hierarchy, follow [Package Configuration and the Registry](pa
 
 ## API reference
 
-[GameTagSO](xref:ElectricDrill.AstraTags.GameTagSO) exposes the authored identity, parent, description, and visual properties. Use `FullPath`, `Depth`, and `Ancestors` to inspect the hierarchy; `Ancestors` runs from the immediate parent toward the root. The runtime hierarchy walks have a 64-step guard; keep authored hierarchies shallow rather than relying on arbitrarily deep paths.
+[`GameTagSO`](xref:ElectricDrill.AstraTags.GameTagSO) exposes the authored identity, parent, description, and visual properties. Use `FullPath`, `Depth`, and `Ancestors` to inspect the hierarchy; `Ancestors` runs from the immediate parent toward the root. The runtime hierarchy walks have a 64-step guard; keep authored hierarchies shallow rather than relying on arbitrarily deep paths.
 
-[TagIcon](xref:ElectricDrill.AstraTags.TagIcon) represents an optional icon, with [TagIconKind](xref:ElectricDrill.AstraTags.TagIconKind) distinguishing `None`, `Emoji`, and `Sprite`. [GradientDirection](xref:ElectricDrill.AstraTags.GradientDirection) defines the fill directions above. These are runtime data types; the picker and pill drawing described here are editor features.
+[`TagIcon`](xref:ElectricDrill.AstraTags.TagIcon) represents an optional icon, with [`TagIconKind`](xref:ElectricDrill.AstraTags.TagIconKind) distinguishing `None`, `Emoji`, and `Sprite`. [`GradientDirection`](xref:ElectricDrill.AstraTags.GradientDirection) defines the fill directions above. These are runtime data types; the picker and pill drawing described here are editor features.
 
 Use the hierarchy in [Tag Sets and Matching](tag-sets.md) to compare exact assignments with ancestor matches and combine tag collections.

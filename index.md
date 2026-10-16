@@ -4,7 +4,7 @@ _layout: landing
 
 # Astra Tags
 
-Astra Tags is a standalone hierarchical tagging system for Unity. Define reusable tags as ScriptableObject assets, assign them to your own objects, and use their hierarchy to answer gameplay questions.
+Astra Tags is a standalone hierarchical tagging system for Unity. Define reusable tags as `ScriptableObject` assets, assign them to your own objects, and use their hierarchy to answer gameplay questions.
 
 For example, a tag set containing `Damage.Fire.Burn` also matches `Damage.Fire` and `Damage`. Combine tags into boolean queries, track tags granted by multiple gameplay sources, and react when a condition changes.
 

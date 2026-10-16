@@ -2,7 +2,7 @@
 
 Configure Astra Tags under `Edit > Project Settings > Astra Tags`, then create and populate the registry used by the running game. This guide assumes the package is [installed](../installation-instructions.md) and tag assets already exist. The hierarchy from [Creating and Organizing Tags](creating-tags.md) provides a small example to check the result.
 
-A [TagRegistry](xref:ElectricDrill.AstraTags.TagRegistry) stores the project's registered tag references. From that list it derives lookups, runtime indices and ancestor masks. Selecting a registry for editor tools and making it available at runtime are separate steps.
+A [`TagRegistry`](xref:ElectricDrill.AstraTags.TagRegistry) stores the project's registered tag references. From that list it derives lookups, runtime indices and ancestor masks. Selecting a registry for editor tools and making it available at runtime are separate steps.
 
 ## Configure the editor tools
 
@@ -58,7 +58,7 @@ Two operations serve different purposes:
 | Operation | Reads | Changes |
 |---|---|---|
 | Inspector **Rebuild from project** / Tag Manager **Rebuild Registry** | Project tag assets | Reconciles and, when needed, saves the serialized tag list; a changed list also triggers a runtime rebuild |
-| [TagRegistry.Rebuild()](xref:ElectricDrill.AstraTags.TagRegistry.Rebuild) | The registry's existing serialized list | Reconstructs derived lookups, dense indices and ancestor masks in memory; does not discover project assets, sort the list or save it |
+| [`TagRegistry.Rebuild()`](xref:ElectricDrill.AstraTags.TagRegistry.Rebuild) | The registry's existing serialized list | Reconstructs derived lookups, dense indices and ancestor masks in memory; does not discover project assets, sort the list or save it |
 
 The project reconciliation operation is also available to editor code as `TagRegistryBuilder.RebuildFromProject(registry)` in `ElectricDrill.AstraTags.Editor`. Keep it in editor-only code. Runtime code uses `TagRegistry.Rebuild()`.
 
@@ -66,15 +66,15 @@ Runtime lookups build lazily on the first registry access that needs them, such 
 
 ### Signature and indices
 
-The Inspector displays [Signature](xref:ElectricDrill.AstraTags.TagRegistry.Signature) as a hexadecimal value. It is a content hash of the ordered tag IDs and their parent IDs, including the tag count. Rebuilding the same data produces the same signature; it is not a counter that advances on every click. A changed membership, order or parent relationship changes the input to that hash. A rename alone is not directly hashed, but can change the order produced by project reconciliation.
+The Inspector displays [`Signature`](xref:ElectricDrill.AstraTags.TagRegistry.Signature) as a hexadecimal value. It is a content hash of the ordered tag IDs and their parent IDs, including the tag count. Rebuilding the same data produces the same signature; it is not a counter that advances on every click. A changed membership, order or parent relationship changes the input to that hash. A rename alone is not directly hashed, but can change the order produced by project reconciliation.
 
 Runtime indices belong to this ordered registry build. Adding or reordering tags can change them. Use stable tag IDs for persistent identity and keep compact index data tied to the registry build that produced it. A signature does not populate a missing tag or repair an outdated list.
 
 ## Resolve the registry at runtime
 
-On its first read, [TagRegistry.Active](xref:ElectricDrill.AstraTags.TagRegistry.Active) calls `Resources.Load<TagRegistry>(TagRegistry.ResourcePath)` and caches the result. Later reads return that value, including a cached `null` when the resource was missing. Access it during game initialization or gameplay, rather than from a static field initializer that might run before the intended setup.
+On its first read, [`TagRegistry.Active`](xref:ElectricDrill.AstraTags.TagRegistry.Active) calls `Resources.Load<TagRegistry>(TagRegistry.ResourcePath)` and caches the result. Later reads return that value, including a cached `null` when the resource was missing. Access it during game initialization or gameplay, rather than from a static field initializer that might run before the intended setup.
 
-For the default resource setup, attach this component to a scene GameObject. `Start` checks the registry and looks up the example tag:
+For the default resource setup, attach this component to a scene `GameObject`. `Start` checks the registry and looks up the example tag:
 
 ```csharp
 using ElectricDrill.AstraTags;
@@ -164,4 +164,4 @@ Use one registry throughout normal gameplay. If initialization must replace a pr
 | Rebuild shows **up to date** but the signature did not advance | This is expected for unchanged data. Verify the needed tag's membership and lookup result rather than expecting a rebuild counter |
 
 > [!NOTE]
-> A registry is not required for every tag operation. Without an active registry, hierarchical `TagSet` matching can follow parent references. Direct tag references and exporting their IDs with `TagSet.ToIdArray()` also remain usable. Resolving IDs or registry-specific indices has different requirements; consult the relevant [TagSet API members](xref:ElectricDrill.AstraTags.TagSet) before choosing a persistence format.
+> A registry is not required for every tag operation. Without an active registry, hierarchical `TagSet` matching can follow parent references. Direct tag references and exporting their IDs with `TagSet.ToIdArray()` also remain usable. Resolving IDs or registry-specific indices has different requirements; consult the relevant [`TagSet` API members](xref:ElectricDrill.AstraTags.TagSet) before choosing a persistence format.

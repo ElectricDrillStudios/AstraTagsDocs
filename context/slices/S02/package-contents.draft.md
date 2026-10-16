@@ -30,7 +30,7 @@ The source manifest declares two samples. Each contains runtime scripts and an e
 | Examples | `Samples~/Examples/` | `Tools > Astra Tags > Samples > Build Examples Scene` | `Assets/AstraTagsExamples/AstraTagsExamples.unity` |
 | Stress Test | `Samples~/StressTest/` | `Tools > Astra Tags > Samples > Build Stress Test Scene` | `Assets/AstraTagsStressTest/AstraTagsStressTest.unity` |
 
-Examples creates a small tag hierarchy, a registry, and a demonstration GameObject. Stress Test creates a preset and a GameObject with a runner and an on-screen HUD.
+Examples creates a small tag hierarchy, a registry, and a demonstration `GameObject`. Stress Test creates a preset and a `GameObject` with a runner and an on-screen HUD.
 
 These generated locations are defined by the builders; they are not evidence of the sample scripts' installation location. The Asset Store sample delivery/import mechanism remains to be checked.
 

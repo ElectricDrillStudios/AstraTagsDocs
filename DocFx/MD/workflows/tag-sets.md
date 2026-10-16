@@ -1,6 +1,6 @@
 # Tag sets and matching
 
-A [TagSet](xref:ElectricDrill.AstraTags.TagSet) stores distinct tag asset references. Use it to check literal assignments, accept tags through their ancestors, or combine stored assignments with set operations. Matching never inserts inferred ancestors into the collection.
+A [`TagSet`](xref:ElectricDrill.AstraTags.TagSet) stores distinct tag asset references. Use it to check literal assignments, accept tags through their ancestors, or combine stored assignments with set operations. Matching never inserts inferred ancestors into the collection.
 
 ## Before starting
 
@@ -17,7 +17,7 @@ These names refer to the actual `GameTagSO` assets, not strings or generated acc
 
 ## Store a set in a serialized field
 
-A set can be a field on a MonoBehaviour, ScriptableObject, or serializable class. For example, save this component as `TagSetFieldExample.cs` and attach it to a GameObject:
+A set can be a field on a `MonoBehaviour`, `ScriptableObject`, or serializable class. For example, save this component as `TagSetFieldExample.cs` and attach it to a `GameObject`:
 
 ```csharp
 using ElectricDrill.AstraTags;
@@ -73,7 +73,7 @@ One stored child can satisfy multiple ancestor requirements. `HasAll` does not r
 
 ### Run the matching example
 
-Save this component as `TagSetMatchingExample.cs`, attach it to a scene GameObject, and enter Play mode after setting up the four-tag runtime registry. It reads the actual assets from that registry and logs the results above:
+Save this component as `TagSetMatchingExample.cs`, attach it to a scene `GameObject`, and enter Play mode after setting up the four-tag runtime registry. It reads the actual assets from that registry and logs the results above:
 
 ```csharp
 using ElectricDrill.AstraTags;
@@ -167,7 +167,7 @@ The three set operations modify the receiving set. They return `void` and do not
 
 `MoveBefore(tag, before)` returns `false` if `tag` is absent. Otherwise, it removes that entry and inserts it before `before`. A null or absent target moves it to the end. Passing the same tag as both arguments also moves it to the end, because the target is looked up after removal. A successful call returns `true`, including when the final order is unchanged. Ordering does not affect matching or set equality.
 
-Use `foreach (var tag in set)` as in the matching example. It uses [TagSet.Enumerator](xref:ElectricDrill.AstraTags.TagSet.Enumerator), whose public `MoveNext()` advances and `Current` reads the current stored entry. Read `Current` only after `MoveNext()` returns `true`. Iterating through `IEnumerable<GameTagSO>` or non-generic `IEnumerable` is also supported. Finish iteration before changing the set; enumerators are not snapshots and mutation behavior differs between the direct and interface paths.
+Use `foreach (var tag in set)` as in the matching example. It uses [`TagSet.Enumerator`](xref:ElectricDrill.AstraTags.TagSet.Enumerator), whose public `MoveNext()` advances and `Current` reads the current stored entry. Read `Current` only after `MoveNext()` returns `true`. Iterating through `IEnumerable<GameTagSO>` or non-generic `IEnumerable` is also supported. Finish iteration before changing the set; enumerators are not snapshots and mutation behavior differs between the direct and interface paths.
 
 ## Equality and normalization
 
@@ -177,7 +177,7 @@ Use `foreach (var tag in set)` as in the matching example. It uses [TagSet.Enume
 
 After Unity deserializes a set, normalization is deferred until an operation needs the stored entries (for example, reading `Count`, accessing `Tags`, or enumerating). It removes null and duplicate tag references, keeping the first occurrence and the order of surviving entries. The deserialization callback marks the collection for this work; it does not prune referenced Unity objects inside the callback. `OnBeforeSerialize` performs no cleanup. Normalization does not collapse child/ancestor pairs: storing both Burn and Fire keeps two distinct entries.
 
-This serialized field stores Unity asset references. Explicit save/network formats are separate APIs: consult [TagSet](xref:ElectricDrill.AstraTags.TagSet) for `ToIdArray`, `ToIndexArray`, `LoadIds`, `LoadIndices`, `FromIds`, and `FromIndices`, and [the registry guide](package-configuration.md#signature-and-indices) for the identity/index distinction.
+This serialized field stores Unity asset references. Explicit save/network formats are separate APIs: consult [`TagSet`](xref:ElectricDrill.AstraTags.TagSet) for `ToIdArray`, `ToIndexArray`, `LoadIds`, `LoadIndices`, `FromIds`, and `FromIndices`, and [the registry guide](package-configuration.md#signature-and-indices) for the identity/index distinction.
 
 ## Matching with and without a registry
 

@@ -1,6 +1,6 @@
 # Introduction
 
-Astra Tags is a standalone hierarchical tagging system for Unity. A tag represents a category or state defined by the project, such as a damage type, an ability category, or a temporary gameplay condition. Tags are reusable ScriptableObject assets that can be assigned to different objects.
+Astra Tags is a standalone hierarchical tagging system for Unity. A tag represents a category or state defined by the project, such as a damage type, an ability category, or a temporary gameplay condition. Tags are reusable `ScriptableObject` assets that can be assigned to different objects.
 
 The package combines runtime matching with editor tools for creating, assigning, and finding tags. Astra Framework and Odin Inspector are not required.
 
@@ -10,7 +10,7 @@ Follow [Installation Instructions](installation-instructions.md) to install the 
 
 ### Tag
 
-A [GameTagSO](xref:ElectricDrill.AstraTags.GameTagSO) defines a single tag. It stores a stable identifier, an optional parent, a description, and visual properties such as color and icon.
+A [`GameTagSO`](xref:ElectricDrill.AstraTags.GameTagSO) defines a single tag. It stores a stable identifier, an optional parent, a description, and visual properties such as color and icon.
 
 The same tag asset can be referenced by many objects. Its meaning comes from the systems that use it. For example, a `State.Stunned` tag does not disable movement on its own; movement logic checks for the tag and decides how to respond.
 
@@ -38,11 +38,11 @@ The inferred ancestors are matching results. They are not additional entries ins
 
 A tag's stable identifier survives asset renames. Use stable identifiers when referring to tags in persistent data that must remain meaningful across builds.
 
-A runtime index is assigned by a [TagRegistry](xref:ElectricDrill.AstraTags.TagRegistry). It identifies a tag within a particular registry build and supports compact serialization and matching masks. Keep index-based data tied to the registry build that produced it.
+A runtime index is assigned by a [`TagRegistry`](xref:ElectricDrill.AstraTags.TagRegistry). It identifies a tag within a particular registry build and supports compact serialization and matching masks. Keep index-based data tied to the registry build that produced it.
 
 ### Tag set
 
-A [TagSet](xref:ElectricDrill.AstraTags.TagSet) is a serializable collection of distinct tag references. It can be embedded in a ScriptableObject, MonoBehaviour, or serializable class.
+A [`TagSet`](xref:ElectricDrill.AstraTags.TagSet) is a serializable collection of distinct tag references. It can be embedded in a `ScriptableObject`, `MonoBehaviour`, or serializable class.
 
 A set supports both exact membership checks and hierarchical matching. It also supports questions about whether any, all, or none of a group of tags are satisfied. Follow [Tag Sets and Matching](workflows/tag-sets.md) for construction, expected results, and collection operations.
 
@@ -50,11 +50,11 @@ A set supports both exact membership checks and hierarchical matching. It also s
 
 A runtime container tracks how many sources currently grant a tag. If two effects both grant `State.Stunned`, ending one effect leaves the tag active until the other effect also releases it.
 
-[TagCountContainer](xref:ElectricDrill.AstraTags.TagCountContainer) provides this behavior in plain C#. [TagContainer](xref:ElectricDrill.AstraTags.TagContainer) exposes it as a MonoBehaviour with authored initial tags. Both provide events and observers for reacting to changes.
+[`TagCountContainer`](xref:ElectricDrill.AstraTags.TagCountContainer) provides this behavior in plain C#. [`TagContainer`](xref:ElectricDrill.AstraTags.TagContainer) exposes it as a `MonoBehaviour` with authored initial tags. Both provide events and observers for reacting to changes.
 
 ### Tag query
 
-A [TagQuery](xref:ElectricDrill.AstraTags.TagQuery) combines tag conditions into a boolean expression. Conditions can require all, any, or none of their tags, and groups can combine or negate other conditions.
+A [`TagQuery`](xref:ElectricDrill.AstraTags.TagQuery) combines tag conditions into a boolean expression. Conditions can require all, any, or none of their tags, and groups can combine or negate other conditions.
 
 For example, an ability might require a tag under `Ability.Magic` and reject a tag under `State.Silenced`. The query describes the condition; the gameplay system decides what a match permits.
 
@@ -64,7 +64,7 @@ For example, an ability might require a tag under `Ability.Magic` and reject a t
 
 Follow [Creating and Organizing Tags](workflows/creating-tags.md) to build a hierarchy and configure tag identity and appearance. Create tag assets from `Astra Tags > Tag` in Unity's asset creation menu. Use `Tools > Astra Tags > Tag Manager` to work with the hierarchy, edit selected tags, and inspect tagged assets.
 
-Objects expose a [TagSet](#tag-set) to store their tags. Implementing [ITagged](xref:ElectricDrill.AstraTags.ITagged) gives the package's editor tools a common way to discover those tags. Use a [TagContainer](#runtime-container) when a GameObject needs tags that multiple gameplay sources can add and release.
+Objects expose a [`TagSet`](#tag-set) to store their tags. Implementing [`ITagged`](xref:ElectricDrill.AstraTags.ITagged) gives the package's editor tools a common way to discover those tags. Use a [`TagContainer`](#runtime-container) when a `GameObject` needs tags that multiple gameplay sources can add and release.
 
 ### Configure the registry
 
@@ -90,7 +90,7 @@ Asset discovery uses an editor index. Runtime state and indexed project assets h
 
 ## Relationship to other tag systems
 
-Astra Tags stores tag assets and tag sets independently of Unity's built-in GameObject tags. It does not replace or change a GameObject's built-in tag.
+Astra Tags stores tag assets and tag sets independently of Unity's built-in `GameObject` tags. It does not replace or change a `GameObject`'s built-in tag.
 
 Astra Framework 2.x also contains its own Game Tags. Those types and collections are separate from Astra Tags. Sharing a similar name does not make their references interchangeable, and the package does not currently provide an automatic bridge between them.
 
