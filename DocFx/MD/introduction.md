@@ -2,7 +2,7 @@
 
 Astra Tags is a standalone hierarchical tagging system for Unity. A tag represents a category or state defined by the project, such as a damage type, an ability category, or a temporary gameplay condition. Tags are reusable `ScriptableObject` assets that can be assigned to different objects.
 
-The package combines runtime matching with editor tools for creating, assigning, and finding tags. Astra Framework and Odin Inspector are not required.
+The package combines runtime matching with editor tools for creating, assigning, and finding tags. Astra Framework is not required.
 
 Follow [Installation Instructions](installation-instructions.md) to install the UPM package and import its optional samples.
 
@@ -10,7 +10,7 @@ Follow [Installation Instructions](installation-instructions.md) to install the 
 
 ### Tag
 
-A [`GameTagSO`](xref:ElectricDrill.AstraTags.GameTagSO) defines a single tag. It stores a stable identifier, an optional parent, a description, and visual properties such as color and icon.
+A [`GameTagSO`](xref:ElectricDrill.AstraTags.GameTagSO) defines a single tag. It stores a stable identifier, an optional parent, a description, and visual properties such as color and icon/emoji.
 
 The same tag asset can be referenced by many objects. Its meaning comes from the systems that use it. For example, a `State.Stunned` tag does not disable movement on its own; movement logic checks for the tag and decides how to respond.
 
@@ -32,7 +32,7 @@ For a tag set containing only `Damage.Fire.Burn`:
 | Does it contain `Damage.Fire` exactly? | No |
 | Does it contain a sibling such as `Damage.Ice`? | No |
 
-The inferred ancestors are matching results. They are not additional entries inserted into the set.
+In the given example, the inferred ancestors are matching results. They are not additional entries inserted into the set.
 
 ### Stable identifier and runtime index
 
