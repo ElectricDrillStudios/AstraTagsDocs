@@ -1,6 +1,6 @@
 # Documentation image register
 
-Track screenshots separately from text completion. The foundation and installation pages need no screenshots; S03 and S04 each have two marked missing captures. The existing Astra logo is a supplied SVG asset, not a pending Unity capture.
+Track screenshots separately from text completion. The foundation and installation pages need no screenshots; S03 and S04 each have two marked missing captures. S05 needs no screenshot. The existing Astra logo is a supplied SVG asset, not a pending Unity capture.
 
 ## Capture protocol
 
@@ -50,3 +50,7 @@ IMG03-01 and IMG03-02 have matching `IMAGE MISSING` comments and intended image 
 ## S04 capture evidence: 2026-10-16
 
 IMG04-01 and IMG04-02 have matching `IMAGE MISSING` comments and intended image links in [Package Configuration and the Registry](../DocFx/MD/workflows/package-configuration.md). Project settings, defaults, creation path and registry Inspector controls were verified against source at `88fe1b27669aba87dc1f998dbae3088b19954284` (manifest 1.0.0). No Unity capture or substitute bitmap was produced. Capture the specified states in a compatible Unity editor, record the actual Unity version and source commit, and verify the content and relative paths before changing availability to `available`.
+
+## S05 capture decision: 2026-10-16
+
+Tag Sets and Matching needs no screenshot (`not_needed`). Its shared hierarchy, expected-result tables and two complete C# components explain stored entries, matching and collection semantics. The brief serialized-field procedure uses the source-verified drawer labels; detailed Inspector captures remain assigned to S06/S12. Source checked at `88fe1b27669aba87dc1f998dbae3088b19954284` (manifest 1.0.0). No Unity interaction or capture was performed, and no new public image placeholder was added. The four missing S03/S04 captures remain outstanding.

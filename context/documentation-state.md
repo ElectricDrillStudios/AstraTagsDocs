@@ -6,11 +6,11 @@ This is the sole source of slice status. Read it with the [plan](documentation-p
 
 - Last updated: 2026-10-16
 - Active slice: none
-- Next slice: [S05](slices/S05.md) (tag sets)
-- Editorial progress: 4 of 20 slices done; S04's Package Configuration and the Registry guide covers editor settings, resource creation, reconciliation, runtime resolution, lookup APIs and recovery, with navigation and entry links
-- Technical verification: S04 DocFX build succeeded (0 errors; exactly 4 registered missing-image warnings across S03/S04); 39 Markdown files and 26 HTML pages checked for local links/resources/anchors, allowing only those four images. Both final C# examples compiled with 0 warnings/errors; all five distinct page xrefs resolve in unchanged S01 metadata, with all 16 runtime C# files matching its input byte for byte. See the [S04 report](slices/S04.md#execution-report-2026-10-16)
-- Images: IMG03-01/02 and IMG04-01/02 are missing with marked public references and [register entries](documentation-assets.md); no screenshots were captured. S01 and S02 need none
-- Source findings: F05/F06 remain open from S03; no GUI reproduction or package fix was performed. S04 checked one-shot Active resolution and the editor/runtime registry distinction without executing Unity lifecycle/resource checks; the public builder result's internal properties are flagged for S16 in coverage
+- Next slice: [S06](slices/S06.md) (custom tagged assets)
+- Editorial progress: 5 of 20 slices done; S05's Tag Sets and Matching guide covers construction/fields, exact and hierarchical queries, per-overload null/empty inputs, literal collection operations, ordering, enumeration, equality and normalization, with navigation and entry links
+- Technical verification: S05 DocFX build succeeded (0 errors; exactly 4 registered missing-image warnings from S03/S04). Both final C# examples compile with 0 warnings/errors; both S05 xrefs resolve in unchanged S01 metadata, with all 16 runtime C# inputs matching byte for byte. Local Markdown/HTML link audits passed; see the [S05 report](slices/S05.md#execution-report-2026-10-16) and latest evidence below
+- Images: S05 needs no capture; IMG03-01/02 and IMG04-01/02 remain missing with marked public references and [register entries](documentation-assets.md). No screenshots were captured
+- Source findings: F05/F06 remain open from S03; S05 adds source findings F07 (self-ExceptWith mutation/exception) and F08 (sparse-registry ancestor-mask truncation), with public usage guidance. No Unity reproduction or package fixes were performed; retain these findings in S15/S19 review
 - Session convention: each slice ends with a local commit under the maintainer's [standing authorization](package-notes.md#commit-at-the-end-of-every-slice), after checks and hand-off updates
 
 ## Source baseline
@@ -19,7 +19,7 @@ This is the sole source of slice status. Read it with the [plan](documentation-p
 |---|---|
 | Inspected commit | `88fe1b27669aba87dc1f998dbae3088b19954284` |
 | Local ref comparison | Checkout HEAD, `main`, and `origin/main` resolve to the same commit |
-| Source worktree | Clean when S04 inspected it; no revision drift from S01 |
+| Source worktree | Clean when S05 inspected it; no revision drift from S01 |
 | Manifest version | 1.0.0 |
 | Release availability | The source changelog includes Unreleased changes; commit coverage does not establish release availability |
 | Lock selection | Read `release-lock.yml`; the current branch ref can advance between sessions |
@@ -35,7 +35,7 @@ Do not copy a local checkout path into this public file. Recheck source drift at
 | S02 | done | [Installation and contents](slices/S02.md) |
 | S03 | done | [Creating tags](slices/S03.md) |
 | S04 | done | [Configuration and registry](slices/S04.md) |
-| S05 | planned | [Tag sets](slices/S05.md) |
+| S05 | done | [Tag sets](slices/S05.md) |
 | S06 | planned | [Custom tagged assets](slices/S06.md) |
 | S07 | planned | [Runtime containers](slices/S07.md) |
 | S08 | planned | [Events and observers](slices/S08.md) |
@@ -65,10 +65,14 @@ Do not copy a local checkout path into this public file. Recheck source drift at
 | F04 | Package maintainer | After the manual and API documentation are complete, generate their PDF documentation and include it in the UPM release as requested. Filename/location remain undecided; no PDF has been generated and this does not block S02 authoring |
 | F05 | Package maintainer | S03 source inspection found reversed calls to `WouldCycleWithParent` in `TagInspectorSections.ShowParentMenu` and `SetParent`: valid ancestors can be hidden and invalid descendants offered; `GameTagSO.OnValidate` clears a cyclic parent to root. Verify in Unity and correct the call direction in package source with regression coverage. The guide documents the root-first workaround for an omitted ancestor and warns against choosing descendants; no GUI reproduction or package fix was executed |
 | F06 | Package maintainer | Inspector reparenting skips `TagNamingPolicy.ValidateInHierarchy`, and direct Project-window creation/rename does not use the same enforcement as package creation/rename actions. Check sibling/root name uniqueness after imports and reparenting; assess consistent enforcement in package source. The S03 guide distinguishes policy, trimming, checked actions and advisory validation; no package fix was executed |
+| F07 | Package maintainer; S19 | S05 found that `set.ExceptWith(set)` on a non-empty set removes the first entry then invalidates its own list enumerator, causing `InvalidOperationException`. Reproduce in Unity and add a self-alias guard plus regression coverage in package source. The guide prescribes `Clear()` or an independent copy; no execution/fix was performed |
+| F08 | Package maintainer; S15/S19 | S05 found that registry ancestor-mask construction stops after `Count + 1` nodes. A four-node chain with only leaf/root registered can omit the registered root from the leaf mask, while stored/query registration prevents fallback. Reproduce and correct or explicitly constrain sparse-registry support; retain complete-hierarchy registration guidance and the separate 64-node fallback guard. No execution/fix was performed |
 
 Append precise verification gaps here as they occur. Do not mark a slice blocked just because its future prerequisites have not yet been scheduled.
 
 ## Latest verification evidence
+
+S05 (2026-10-16): source revision unchanged; all public TagSet members, normalization, mask/fallback paths, registry ancestor construction and property-drawer labels checked, with matching/mutation/serialization/bitset-equivalence and relevant signature test-source inspection (not execution). Both final C# snippets compile against the unchanged S01 runtime assembly and Unity 6000.2.10f1 CoreModule using .NET SDK 8.0.131 / netstandard2.1 (0 warnings/errors). Both distinct S05 xrefs resolve in unchanged S01 metadata; all 16 runtime files match its source snapshot. DocFX 2.78.5 succeeds with 0 errors and exactly the same four registered missing-image warnings from S03/S04. The final audit checked 40 Markdown files (204 local links/anchors) and 27 HTML pages (546 local links/resources/anchors), allowing only the four registered images. Navigation, entry links, titles and output exclusions pass. S05 requires no images. F07/F08 are source findings with usage guidance, awaiting package-side reproduction/fixes; Unity execution, Console output, deserialization and incomplete-registry behavior were not exercised. No new runtime assembly/metadata, release-host build/API comparison, toolkit test rerun, publication, screenshot capture or remote fetch was performed.
 
 S04 (2026-10-16): source revision unchanged; inspected registry/runtime lookup and editor configuration/reconciliation implementations and relevant test source (not executed). Both final C# examples compile against the unchanged S01 runtime assembly and Unity 6000.2.10f1 CoreModule using .NET SDK 8.0.131 / netstandard2.1, with 0 warnings/errors. Five distinct S04 xrefs resolve in S01 metadata; all 16 runtime C# files match its source snapshot. DocFX 2.78.5 build succeeded with 0 errors and exactly 4 `InvalidFileLink` warnings matching the two missing captures each from S03 and S04. The audit checked all local links/anchors in 39 Markdown files and 527 local links/resources/anchors across 26 HTML pages, allowing only those four registered images and checking their page comments/register entries. New workflow URL, navigation/entry links, titles and output exclusions passed. No Unity GUI/play-mode/test/resource-loading execution, screenshot capture, new runtime compilation/metadata generation, release-host build, publication, toolkit test rerun or remote fetch was performed. V01 continues to own interactive registry/setup verification in the release artifact; local commits are now part of every slice's completion protocol.
 

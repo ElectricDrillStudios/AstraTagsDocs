@@ -44,7 +44,7 @@ A runtime index is assigned by a [TagRegistry](xref:ElectricDrill.AstraTags.TagR
 
 A [TagSet](xref:ElectricDrill.AstraTags.TagSet) is a serializable collection of distinct tag references. It can be embedded in a ScriptableObject, MonoBehaviour, or serializable class.
 
-A set supports both exact membership checks and hierarchical matching. It also supports questions about whether any, all, or none of a group of tags are satisfied.
+A set supports both exact membership checks and hierarchical matching. It also supports questions about whether any, all, or none of a group of tags are satisfied. Follow [Tag Sets and Matching](workflows/tag-sets.md) for construction, expected results, and collection operations.
 
 ### Runtime container
 

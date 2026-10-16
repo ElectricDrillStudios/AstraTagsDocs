@@ -6,6 +6,8 @@
       href: workflows/creating-tags.md
     - name: Package Configuration and the Registry
       href: workflows/package-configuration.md
+    - name: Tag Sets and Matching
+      href: workflows/tag-sets.md
 - name: Requirements
   href: requirements.md
 - name: Package Contents
