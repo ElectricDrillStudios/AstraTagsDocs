@@ -1,6 +1,6 @@
 # Documentation image register
 
-Track screenshots separately from text completion. The current foundation pages need no screenshots. The existing Astra logo is a supplied SVG asset, not a pending Unity capture.
+Track screenshots separately from text completion. The foundation and installation pages need no screenshots; S03 has two marked missing captures. The existing Astra logo is a supplied SVG asset, not a pending Unity capture.
 
 ## Capture protocol
 
@@ -21,8 +21,8 @@ Paths are relative to `DocFx/images/`; public page paths are relative to `DocFx/
 
 | ID | Owner | Intended image | Intended page | Capture specification | Availability |
 |---|---|---|---|---|---|
-| IMG03-01 | S03 | `creating-tags/tag-inspector.png` | `workflows/creating-tags.md` | Select a child tag with identity, parent breadcrumb, description and visuals visible; precede with its verified creation-menu path | planned |
-| IMG03-02 | S03 | `creating-tags/icon-picker.png` | `workflows/creating-tags.md` | Show the current emoji/sprite selection UI with a representative tag icon | planned |
+| IMG03-01 | S03 | `creating-tags/tag-inspector.png` | `workflows/creating-tags.md` | Select `Burn` with Id, `Damage › Fire › Burn` breadcrumb, Parent, Description and Visual controls visible; precede with `Astra Tags > Tag` | missing |
+| IMG03-02 | S03 | `creating-tags/icon-picker.png` | `workflows/creating-tags.md` | Open Burn's Icon > Choose… on Emoji; show Search emoji…, category controls, and the Sprite tab | missing |
 | IMG04-01 | S04 | `package-configuration/project-settings.png` | `workflows/package-configuration.md` | Open Project Settings > Astra Tags with authoring and registry settings visible | planned |
 | IMG04-02 | S04 | `package-configuration/tag-registry.png` | `workflows/package-configuration.md` | Show the registry Inspector and verified rebuild controls; distinguish the runtime asset location in the surrounding text | planned |
 | IMG06-01 | S06 | `taggable-assets/custom-asset.png` | `workflows/taggable-assets.md` | Show the minimal custom tagged asset from the page and its tag editing controls | planned |
@@ -42,3 +42,7 @@ S02 should add installation screenshots only if the verified distribution flow n
 ## S02 capture decision: 2026-10-16
 
 Requirements, Package Contents, and Installation Instructions need no screenshot (`not_needed`). The maintainer confirmed pure UPM distribution and separate sample import; the numbered steps name the Unity controls and link to official guidance. Text is sufficient for this flow, so S02 introduces no missing screenshot or public image placeholder. An optional future capture of the published product is outside S02's required images; no capture was performed.
+
+## S03 capture evidence: 2026-10-16
+
+IMG03-01 and IMG03-02 have matching `IMAGE MISSING` comments and intended image links in [Creating and Organizing Tags](../DocFx/MD/workflows/creating-tags.md). Labels and menus were checked in source at `88fe1b27669aba87dc1f998dbae3088b19954284` (manifest 1.0.0); no Unity capture or substitute bitmap was produced. Capture both in a compatible Unity editor, record the actual Unity version and source commit, and verify the content and relative paths before changing availability to `available`.

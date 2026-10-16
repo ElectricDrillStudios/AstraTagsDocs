@@ -21,8 +21,8 @@ All destination paths are beneath `DocFx/MD/` unless stated otherwise.
 | Package purpose, vocabulary, matching direction | [Introduction](../DocFx/MD/introduction.md), root home | S01 | Manifest; `Runtime/GameTagSO.cs`, `TagSet.cs`, `TagRegistry.cs`, `TagCountContainer.cs`, `TagContainer.cs`, `TagQuery.cs`, `ITagged.cs`; relevant editor menu/settings/codegen paths and bridge assembly definitions | Overview and all authored xrefs checked at S01 baseline; isolated DocFX build and HTML link audit passed; see S01 report |
 | Minimum Unity version, dependencies, install, sample import | [Requirements](../DocFx/MD/requirements.md), [Installation Instructions](../DocFx/MD/installation-instructions.md) | S02 | Manifest; runtime/editor/sample assembly definitions; maintainer-confirmed pure UPM distribution; Unity 6.2 UPM/sample guides | Source checked at the unchanged S01 baseline; maintainer confirmed Packages location and separate sample import; public procedure, prerequisites, success checks, and navigation complete; DocFX/link verification recorded in the [completion report](slices/S02.md#upm-completion-report-2026-10-16); no published-product installation or Unity sample import was executed |
 | Important package directories and shipped content | [Package Contents](../DocFx/MD/package-contents.md) | S02 | Package tree, sample definitions/builders, and maintainer-confirmed UPM content selection | Source checked at the unchanged S01 baseline; public page describes selected Editor/Runtime/Samples~/manifest content, logical Packages location, and future PDF documentation; actual release artifact inspection/PDF generation remain release follow-ups |
-| Tag identity, hierarchy, full path, stable ID, names, cycles | `workflows/creating-tags.md` | S03 | `Runtime/GameTagSO.cs`; editor naming and inspector code | Assigned |
-| Color, gradient, emoji/sprite icon authoring | `workflows/creating-tags.md` | S03 | `Runtime/TagIcon.cs`, icon/gradient enums; editor icon and inspector code | Assigned |
+| Tag identity, hierarchy, full path, stable ID, names, cycles | [Creating and Organizing Tags](../DocFx/MD/workflows/creating-tags.md) | S03 | `Runtime/GameTagSO.cs`; `Editor/TagNamingPolicy.cs`, `Editor/Tags/TagInspectorSections.cs`, `Editor/Windows/TagTextPrompt.cs`, `Editor/Windows/TagHierarchyView.cs` | Source checked at the unchanged S01 baseline; reproducible four-tag hierarchy, checked-action versus advisory name rules, trimmed/internal whitespace, case-insensitive sibling uniqueness, stable-ID regeneration, and cycle fallback documented. Reversed Inspector parent checks and unchecked reparenting collisions recorded in state F05/F06; no Unity interaction executed |
+| Color, gradient, emoji/sprite icon authoring | [Creating and Organizing Tags](../DocFx/MD/workflows/creating-tags.md#configure-appearance) | S03 | `Runtime/TagIcon.cs`, `TagIconKind.cs`, `GradientDirection.cs`; `Editor/Tags/TagInspectorSections.cs`, `Editor/Icons/TagIconPicker.cs`, `Editor/Icons/TagIconResolver.cs` | Source checked at the unchanged S01 baseline; defaults, exact labels, gradient directions, emoji controls, sprite GUID/editor-only resolution and sub-sprite limitation checked. Four page API xrefs resolve in unchanged S01 metadata; DocFX/link audit passed apart from two registered missing captures; see [S03 report](slices/S03.md#execution-report-2026-10-16) |
 | Settings, editor registry, runtime resource, rebuild and lookup | `workflows/package-configuration.md` | S04 | `Runtime/TagRegistry.cs`; editor settings, registry builder and inspector | Assigned |
 | Exact/hierarchical matching; Any/All/None; null/empty inputs | `workflows/tag-sets.md` | S05 | `Runtime/TagSet.cs`; matching tests | Assigned |
 | Mutation, ordering, enumeration, equality and normalization | `workflows/tag-sets.md` | S05 | `Runtime/TagSet.cs`; mutation and serialization tests | Assigned |
@@ -53,7 +53,7 @@ Constructors, public/protected members, overloads, enum values, and nested publi
 
 | UID beneath `ElectricDrill.AstraTags` | Explanation owner | API evidence |
 |---|---|---|
-| `GameTagSO` | S03 | Source declaration confirmed |
+| `GameTagSO` | S03 | Identity, hierarchy and visual workflow source checked in S03; type UID resolves in unchanged S01 metadata |
 | `TagRegistry` | S04 | Source declaration confirmed |
 | `TagSet` and `TagSet.Enumerator` | S05 | Source declarations confirmed |
 | `ITagged` | S06 | Source declaration confirmed |
@@ -64,9 +64,9 @@ Constructors, public/protected members, overloads, enum values, and nested publi
 | `TagQueryMode` | S09 | Source declaration confirmed |
 | `TagQueryConnective` | S09 | Source declaration confirmed |
 | `ITagQuerySource` | S09 | Source declaration confirmed; release availability pending |
-| `TagIcon` | S03 | Source declaration confirmed |
-| `TagIconKind` | S03 | Source declaration confirmed |
-| `GradientDirection` | S03 | Source declaration confirmed |
+| `TagIcon` | S03 | Visual authoring explanation source checked in S03; type UID resolves in unchanged S01 metadata |
+| `TagIconKind` | S03 | Visual authoring explanation source checked in S03; type UID resolves in unchanged S01 metadata |
+| `GradientDirection` | S03 | Visual authoring explanation source checked in S03; type UID resolves in unchanged S01 metadata |
 
 `TagQueryOpCode` is internal at the baseline and is not a public API target. Do not add internal implementation types to the public reference merely to satisfy an inventory.
 

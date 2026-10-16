@@ -62,7 +62,7 @@ For example, an ability might require a tag under `Ability.Magic` and reject a t
 
 ### Author tags and assign them to objects
 
-Create tag assets from `Astra Tags > Tag` in Unity's asset creation menu. Use `Tools > Astra Tags > Tag Manager` to work with the hierarchy, edit selected tags, and inspect tagged assets.
+Follow [Creating and Organizing Tags](workflows/creating-tags.md) to build a hierarchy and configure tag identity and appearance. Create tag assets from `Astra Tags > Tag` in Unity's asset creation menu. Use `Tools > Astra Tags > Tag Manager` to work with the hierarchy, edit selected tags, and inspect tagged assets.
 
 Objects expose a [TagSet](#tag-set) to store their tags. Implementing [ITagged](xref:ElectricDrill.AstraTags.ITagged) gives the package's editor tools a common way to discover those tags. Use a [TagContainer](#runtime-container) when a GameObject needs tags that multiple gameplay sources can add and release.
 

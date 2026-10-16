@@ -6,10 +6,11 @@ This is the sole source of slice status. Read it with the [plan](documentation-p
 
 - Last updated: 2026-10-16
 - Active slice: none
-- Next slice: [S03](slices/S03.md) (creating tags); S02 distribution questions are resolved by the maintainer-confirmed pure UPM route and separate Package Manager sample import
-- Editorial progress: 2 of 20 slices done; all three S02 pages (Requirements, Package Contents, Installation Instructions) are authored, source/flow checked, and linked from manual navigation and the home; installation is also linked from the introduction
-- Technical verification: final S02 DocFX build passed (0 warnings/errors); 37 Markdown files and 24 HTML pages passed local link/resource/anchor checks, reusing unchanged S01 API metadata. The UPM flow is supported by maintainer evidence and Unity 6.2 guidance; actual product installation/sample import remain an unexecuted release check. See the [completion report](slices/S02.md#upm-completion-report-2026-10-16)
-- Images: no screenshots required by S01 or any S02 page; no S02 missing-image placeholders. Future captures remain in the [asset register](documentation-assets.md)
+- Next slice: [S04](slices/S04.md) (configuration and registry)
+- Editorial progress: 3 of 20 slices done; S03's Creating and Organizing Tags guide covers a concrete hierarchy, names, stable identity and appearance, with Workflows navigation and home/introduction links
+- Technical verification: S03 DocFX build succeeded (0 errors; exactly 2 registered missing-image warnings); 38 Markdown files and 25 HTML pages checked for local links/resources/anchors, allowing only those two images. All four new API xrefs resolve in unchanged S01 metadata; all 16 runtime C# files match its source snapshot byte for byte. See the [S03 report](slices/S03.md#execution-report-2026-10-16)
+- Images: IMG03-01 and IMG03-02 are missing with marked public references and [register entries](documentation-assets.md); no screenshots were captured. S01 and S02 need none
+- Source findings: F05 tracks reversed Inspector parent-cycle checks; F06 tracks inconsistent name/collision enforcement. The guide documents the limitations and workaround, checked from source; neither GUI reproduction nor a package fix was performed
 
 ## Source baseline
 
@@ -17,7 +18,7 @@ This is the sole source of slice status. Read it with the [plan](documentation-p
 |---|---|
 | Inspected commit | `88fe1b27669aba87dc1f998dbae3088b19954284` |
 | Local ref comparison | Checkout HEAD, `main`, and `origin/main` resolve to the same commit |
-| Source worktree | Clean when S02 inspected it; no revision drift from S01 |
+| Source worktree | Clean when S03 inspected it; no revision drift from S01 |
 | Manifest version | 1.0.0 |
 | Release availability | The source changelog includes Unreleased changes; commit coverage does not establish release availability |
 | Lock selection | Read `release-lock.yml`; the current branch ref can advance between sessions |
@@ -31,7 +32,7 @@ Do not copy a local checkout path into this public file. Recheck source drift at
 |---|---|---|
 | S01 | done | [Foundation](slices/S01.md) |
 | S02 | done | [Installation and contents](slices/S02.md) |
-| S03 | planned | [Creating tags](slices/S03.md) |
+| S03 | done | [Creating tags](slices/S03.md) |
 | S04 | planned | [Configuration and registry](slices/S04.md) |
 | S05 | planned | [Tag sets](slices/S05.md) |
 | S06 | planned | [Custom tagged assets](slices/S06.md) |
@@ -61,12 +62,16 @@ Do not copy a local checkout path into this public file. Recheck source drift at
 | F02 | All sessions | Restore or reconcile customized home, navigation, and DocFX mappings after any template sync |
 | F03 | Package maintainer | Isolated runtime compilation reports CS0419 for the ambiguous XML cref `Resources.Load` in `TagRegistry.Active`. Correct the XML in package source separately; S01 metadata and site builds pass with warnings treated as errors |
 | F04 | Package maintainer | After the manual and API documentation are complete, generate their PDF documentation and include it in the UPM release as requested. Filename/location remain undecided; no PDF has been generated and this does not block S02 authoring |
+| F05 | Package maintainer | S03 source inspection found reversed calls to `WouldCycleWithParent` in `TagInspectorSections.ShowParentMenu` and `SetParent`: valid ancestors can be hidden and invalid descendants offered; `GameTagSO.OnValidate` clears a cyclic parent to root. Verify in Unity and correct the call direction in package source with regression coverage. The guide documents the root-first workaround for an omitted ancestor and warns against choosing descendants; no GUI reproduction or package fix was executed |
+| F06 | Package maintainer | Inspector reparenting skips `TagNamingPolicy.ValidateInHierarchy`, and direct Project-window creation/rename does not use the same enforcement as package creation/rename actions. Check sibling/root name uniqueness after imports and reparenting; assess consistent enforcement in package source. The S03 guide distinguishes policy, trimming, checked actions and advisory validation; no package fix was executed |
 
 Append precise verification gaps here as they occur. Do not mark a slice blocked just because its future prerequisites have not yet been scheduled.
 
 ## Latest verification evidence
 
-S02 completion (2026-10-16): DocFX 2.78.5 build passed with warnings treated as errors (0 warnings, 0 errors); 37 Markdown files and 24 HTML pages passed local link/resource/anchor checks. All three S02 pages render under `MD/`, resolve in manual navigation/home links, and installation is linked from the introduction. Context, archived drafts, operational pages, private-source markers, and duplicate `DocFx/MD/` output remain excluded. The source revision was reinspected and matches S01; its existing API metadata was reused. No actual product install/sample import, new compilation/metadata generation, toolkit test rerun, sample execution, release-host build, publication, PDF generation, or remote fetch was performed.
+S03 (2026-10-16): source revision unchanged; inspected identity/hierarchy/naming/icon/gradient implementation and exact editor labels. All 16 runtime C# files match the S01 metadata snapshot; four new xrefs resolve among its 307 UIDs. DocFX 2.78.5 build succeeded with 0 errors and exactly 2 `InvalidFileLink` warnings matching IMG03-01/IMG03-02. The audit checked 38 Markdown files (178 local links/anchors) and 25 HTML pages (504 local links/resources/anchors), allowing only the two registered missing screenshots and confirming their comments/register entries. Navigation, expected workflow URL, titles and output exclusions passed. No new compilation/metadata generation, Unity GUI/test execution, screenshot capture, toolkit test rerun, release-host build, publication or remote fetch was performed. F05/F06 are source findings awaiting package-side verification/correction, not executed regression tests.
+
+S02 completion remains prior evidence: its DocFX build passed with warnings treated as errors (0 warnings/errors), and 37 Markdown files / 24 HTML pages passed local link/resource/anchor checks. All three S02 pages render under `MD/` and are linked from navigation/home; installation is also linked from the introduction. Maintainer evidence and Unity 6.2 guidance support pure UPM installation and separate sample import; actual product installation/sample import remain unexecuted release checks. No PDF was generated.
 
 The following S01 foundation checks remain prior evidence:
 

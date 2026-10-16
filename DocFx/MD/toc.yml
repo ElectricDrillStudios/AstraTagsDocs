@@ -1,5 +1,9 @@
 - name: Introduction
   href: introduction.md
+- name: Workflows
+  items:
+    - name: Creating and Organizing Tags
+      href: workflows/creating-tags.md
 - name: Requirements
   href: requirements.md
 - name: Package Contents
