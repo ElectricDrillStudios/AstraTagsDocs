@@ -15,6 +15,7 @@ For example, a tag set containing `Damage.Fire.Burn` also matches `Damage.Fire` 
 - [Creating and Organizing Tags](DocFx/MD/workflows/creating-tags.md): create a hierarchy and configure tag names, stable identity, and visuals
 - [Package Configuration and the Registry](DocFx/MD/workflows/package-configuration.md): configure editor tools and provide the game's runtime registry
 - [Tag Sets and Matching](DocFx/MD/workflows/tag-sets.md): choose exact or hierarchical checks and modify stored assignments
+- [Integrating Custom Tagged Assets](DocFx/MD/workflows/taggable-assets.md): expose serialized tags on custom assets and components to the editor tools
 - [Requirements](DocFx/MD/requirements.md): check the minimum Unity version and package dependencies
 - [Package Contents](DocFx/MD/package-contents.md): locate the runtime, editor tools, samples, and planned offline documentation
 - [API reference](xref:ElectricDrill.AstraTags): look up runtime types and members

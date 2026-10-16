@@ -33,6 +33,8 @@ public sealed class TagSetFieldExample : MonoBehaviour
 
 Expand **Tags** in the Inspector, add a list entry with **+**, and assign the `Burn` asset. The expanded list also provides **+ Add Multiple Tags…** for selecting several tags. An Inspector assignment stores a reference to an existing tag asset; it does not create a tag or add the tag's parents as entries.
 
+Follow [Integrating Custom Tagged Assets](taggable-assets.md) to expose the stored set through `ITagged` for editable headers and asset discovery.
+
 `new TagSet()` creates an empty set. `new TagSet(burn)` stores one tag, and `new TagSet(new[] { burn, ice })` stores a sequence. The sequence constructor skips nulls and duplicate references while retaining the first occurrence's position. `new TagSet(existingSet)` copies the entries into a separate collection, retaining references to the same tag assets. Assigning `var copy = existingSet` shares the same mutable set instead.
 
 ## Choose exact or hierarchical membership

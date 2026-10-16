@@ -6,11 +6,12 @@ This is the sole source of slice status. Read it with the [plan](documentation-p
 
 - Last updated: 2026-10-16
 - Active slice: none
-- Next slice: [S06](slices/S06.md) (custom tagged assets)
-- Editorial progress: 5 of 20 slices done; S05's Tag Sets and Matching guide covers construction/fields, exact and hierarchical queries, per-overload null/empty inputs, literal collection operations, ordering, enumeration, equality and normalization, with navigation and entry links
-- Technical verification: S05 DocFX build succeeded (0 errors; exactly 4 registered missing-image warnings from S03/S04). Both final C# examples compile with 0 warnings/errors; both S05 xrefs resolve in unchanged S01 metadata, with all 16 runtime C# inputs matching byte for byte. Local Markdown/HTML link audits passed; see the [S05 report](slices/S05.md#execution-report-2026-10-16) and latest evidence below
-- Images: S05 needs no capture; IMG03-01/02 and IMG04-01/02 remain missing with marked public references and [register entries](documentation-assets.md). No screenshots were captured
-- Source findings: F05/F06 remain open from S03; S05 adds source findings F07 (self-ExceptWith mutation/exception) and F08 (sparse-registry ancestor-mask truncation), with public usage guidance. No Unity reproduction or package fixes were performed; retain these findings in S15/S19 review
+- Next slice: [S07](slices/S07.md) (runtime containers)
+- Editorial progress: 6 of 20 slices done; S06 adds the custom `ITagged` asset/component guide, serialized backing-field/getter requirements, Inspector editing, assignment storage and source-verified discovery scope, with navigation and entry links
+- Technical verification: both S06 scripts compile with 0 warnings/errors. DocFX succeeds with 0 errors and exactly 5 registered missing-image warnings. All local Markdown/HTML links, anchors and resources pass except those marked images; two S06 API xrefs resolve in unchanged S01 metadata, with all 16 runtime inputs matching byte for byte. See the [S06 report](slices/S06.md#execution-report-2026-10-16) and evidence below
+- Images: IMG06-01 joins IMG03-01/02 and IMG04-01/02 as missing, with matching public references and [register entries](documentation-assets.md). No screenshots were captured
+- Interactive verification: S06 asset creation, Inspector editing, serialization/prefab persistence and index results remain unexecuted Unity checks under V01; source inspection and snippet compilation do not establish those results
+- Source findings: F05/F06 from S03 and F07/F08 from S05 remain open. S06 records the first-component header versus all-component prefab index, main-asset scope, coarse scene dependencies and Assets-only incremental updates for S11/S12 follow-up; no package fixes or Unity reproductions were performed
 - Session convention: each slice ends with a local commit under the maintainer's [standing authorization](package-notes.md#commit-at-the-end-of-every-slice), after checks and hand-off updates
 
 ## Source baseline
@@ -19,7 +20,7 @@ This is the sole source of slice status. Read it with the [plan](documentation-p
 |---|---|
 | Inspected commit | `88fe1b27669aba87dc1f998dbae3088b19954284` |
 | Local ref comparison | Checkout HEAD, `main`, and `origin/main` resolve to the same commit |
-| Source worktree | Clean when S05 inspected it; no revision drift from S01 |
+| Source worktree | Clean when S06 inspected it; no revision drift from S01 |
 | Manifest version | 1.0.0 |
 | Release availability | The source changelog includes Unreleased changes; commit coverage does not establish release availability |
 | Lock selection | Read `release-lock.yml`; the current branch ref can advance between sessions |
@@ -36,7 +37,7 @@ Do not copy a local checkout path into this public file. Recheck source drift at
 | S03 | done | [Creating tags](slices/S03.md) |
 | S04 | done | [Configuration and registry](slices/S04.md) |
 | S05 | done | [Tag sets](slices/S05.md) |
-| S06 | planned | [Custom tagged assets](slices/S06.md) |
+| S06 | done | [Custom tagged assets](slices/S06.md) |
 | S07 | planned | [Runtime containers](slices/S07.md) |
 | S08 | planned | [Events and observers](slices/S08.md) |
 | S09 | planned | [Boolean queries](slices/S09.md) |
@@ -71,6 +72,8 @@ Do not copy a local checkout path into this public file. Recheck source drift at
 Append precise verification gaps here as they occur. Do not mark a slice blocked just because its future prerequisites have not yet been scheduled.
 
 ## Latest verification evidence
+
+S06 (2026-10-16): source revision unchanged at `88fe1b27669aba87dc1f998dbae3088b19954284`; inspected `ITagged`, header/drawer/pill/picker code, index type/main-asset/prefab/scene/import paths, settings, Manager and Search integration. Both final C# scripts compile with 0 warnings/errors against the unchanged S01 runtime assembly and Unity 6000.2.10f1 CoreModule (.NET SDK 8.0.131 / netstandard2.1). Both distinct type xrefs resolve in unchanged S01 metadata; all 16 runtime files match its input byte for byte. DocFX 2.78.5 succeeds with 0 errors and exactly 5 registered missing-image warnings (S03/S04/S06). The final audit checked 41 Markdown files (215 local links/anchors) and 28 HTML pages (562 local links/resources/anchors), allowing only the five registered missing images; navigation, new workflow URL, titles and output exclusions checked. No Unity asset creation/Inspector/serialization/prefab/index/scene procedure or tests executed; V01 retains interactive verification. No screenshot capture, new runtime assembly/metadata generation, release-host build/API comparison, toolkit test rerun, publication or remote fetch. See the [S06 report](slices/S06.md#execution-report-2026-10-16).
 
 S05 (2026-10-16): source revision unchanged; all public TagSet members, normalization, mask/fallback paths, registry ancestor construction and property-drawer labels checked, with matching/mutation/serialization/bitset-equivalence and relevant signature test-source inspection (not execution). Both final C# snippets compile against the unchanged S01 runtime assembly and Unity 6000.2.10f1 CoreModule using .NET SDK 8.0.131 / netstandard2.1 (0 warnings/errors). Both distinct S05 xrefs resolve in unchanged S01 metadata; all 16 runtime files match its source snapshot. DocFX 2.78.5 succeeds with 0 errors and exactly the same four registered missing-image warnings from S03/S04. The final audit checked 40 Markdown files (204 local links/anchors) and 27 HTML pages (546 local links/resources/anchors), allowing only the four registered images. Navigation, entry links, titles and output exclusions pass. S05 requires no images. F07/F08 are source findings with usage guidance, awaiting package-side reproduction/fixes; Unity execution, Console output, deserialization and incomplete-registry behavior were not exercised. No new runtime assembly/metadata, release-host build/API comparison, toolkit test rerun, publication, screenshot capture or remote fetch was performed.
 

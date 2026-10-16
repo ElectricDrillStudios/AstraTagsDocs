@@ -1,6 +1,6 @@
 # Documentation image register
 
-Track screenshots separately from text completion. The foundation and installation pages need no screenshots; S03 and S04 each have two marked missing captures. S05 needs no screenshot. The existing Astra logo is a supplied SVG asset, not a pending Unity capture.
+Track screenshots separately from text completion. The foundation and installation pages need no screenshots; S03 and S04 each have two marked missing captures. S05 needs no screenshot; S06 adds one marked missing capture. The existing Astra logo is a supplied SVG asset, not a pending Unity capture.
 
 ## Capture protocol
 
@@ -25,7 +25,7 @@ Paths are relative to `DocFx/images/`; public page paths are relative to `DocFx/
 | IMG03-02 | S03 | `creating-tags/icon-picker.png` | `workflows/creating-tags.md` | Open Burn's Icon > Choose… on Emoji; show Search emoji…, category controls, and the Sprite tab | missing |
 | IMG04-01 | S04 | `package-configuration/project-settings.png` | `workflows/package-configuration.md` | Open Project Settings > Astra Tags with Authoring, Editor Registry, Editor Index and Code Generation visible; use the defaults before registry assignment | missing |
 | IMG04-02 | S04 | `package-configuration/tag-registry.png` | `workflows/package-configuration.md` | Select the default runtime registry after rebuilding the four-tag example; show the tag list, count, hexadecimal signature, Rebuild from project button and up-to-date result; precede with `Astra Tags > Tag Registry` | missing |
-| IMG06-01 | S06 | `taggable-assets/custom-asset.png` | `workflows/taggable-assets.md` | Show the minimal custom tagged asset from the page and its tag editing controls | planned |
+| IMG06-01 | S06 | `taggable-assets/custom-asset.png` | `workflows/taggable-assets.md` | Select `FireAbility` created from `AbilityDefinition`; show its Burn header pill and expanded Tags (1) field with the Burn asset reference; precede with `Game Data > Ability` | missing |
 | IMG07-01 | S07 | `runtime-containers/tag-container.png` | `workflows/runtime-containers.md` | Show TagContainer's authored initial-tag configuration | planned |
 | IMG09-01 | S09 | `tag-queries/query-drawer.png` | `workflows/tag-queries.md` | Show the page's nested boolean example in the current query drawer | planned |
 | IMG10-01 | S10 | `tag-manager/overview.png` | `workflows/tag-manager.md` | Show all three panes with a selected hierarchy node and a tagged asset | planned |
@@ -54,3 +54,7 @@ IMG04-01 and IMG04-02 have matching `IMAGE MISSING` comments and intended image 
 ## S05 capture decision: 2026-10-16
 
 Tag Sets and Matching needs no screenshot (`not_needed`). Its shared hierarchy, expected-result tables and two complete C# components explain stored entries, matching and collection semantics. The brief serialized-field procedure uses the source-verified drawer labels; detailed Inspector captures remain assigned to S06/S12. Source checked at `88fe1b27669aba87dc1f998dbae3088b19954284` (manifest 1.0.0). No Unity interaction or capture was performed, and no new public image placeholder was added. The four missing S03/S04 captures remain outstanding.
+
+## S06 capture evidence: 2026-10-16
+
+IMG06-01 has a matching `IMAGE MISSING` comment and intended image reference in [Integrating Custom Tagged Assets](../DocFx/MD/workflows/taggable-assets.md). The example-defined asset menu and package Inspector controls were checked against source at `88fe1b27669aba87dc1f998dbae3088b19954284` (manifest 1.0.0). Both example scripts compile with 0 warnings/errors as recorded in the slice report; no Unity Inspector interaction or capture was performed. Capture FireAbility with only Burn assigned in a compatible Unity editor, record the actual Unity version and source commit, and check the image and relative path before changing availability to `available`. Five images remain missing across S03/S04/S06.

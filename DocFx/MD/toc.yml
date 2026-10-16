@@ -8,6 +8,8 @@
       href: workflows/package-configuration.md
     - name: Tag Sets and Matching
       href: workflows/tag-sets.md
+    - name: Integrating Custom Tagged Assets
+      href: workflows/taggable-assets.md
 - name: Requirements
   href: requirements.md
 - name: Package Contents
