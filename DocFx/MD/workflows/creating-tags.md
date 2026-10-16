@@ -1,6 +1,8 @@
 # Creating and organizing tags
 
-Create a small tag hierarchy, give each tag a clear meaning, and configure its appearance in the Inspector. For the matching model and terminology, see [Hierarchy and full path](../introduction.md#hierarchy-and-full-path).
+Let's create a few tags for damage types and organize them into a hierarchy. Along the way, we'll look at choosing valid names, keeping each tag's identity stable when making changes, and using colors and icons to make tags easier to recognize in the Editor.
+
+If you need a refresher on parent relationships and full paths, see [Hierarchy and full path](../introduction.md#hierarchy-and-full-path).
 
 ## Before starting
 

@@ -25,8 +25,19 @@
 - Prefer concept -> configuration/details -> example -> caveats/links
 - Keep explanations compact when a cross-reference can carry the detail
 - Use **"Let's"** phrasing naturally for guided walkthroughs and examples
+- Open workflow pages with a brief, natural overview of the task and what the reader will learn; introduce the example before giving instructions, rather than starting with a bare command or a compressed checklist
 - Use parenthetical asides `(like this)` for brief clarifications instead of em-dashes
 - Avoid summary sections unless the user explicitly asks for them
+
+---
+
+## Audience and Page Scope
+
+- Write for Unity developers who want to use the package in their projects; explain what they can do, how to do it, and the limits that affect their choices
+- Organize overviews around capabilities and workflows; include implementation details only when they help readers configure, integrate, troubleshoot, or extend the package
+- Keep Package Contents at the level of the main subsystems, useful editor tools, samples, and documentation, with short descriptions and links to the relevant guides
+- Do not turn Package Contents into an inventory of files, folders, assemblies, editor classes, drawers, or internal helpers; include a path only when readers need it to find or use something
+- Put setup steps, sample-builder commands, and operational caveats in their dedicated guides and link to them from the overview
 
 ---
 

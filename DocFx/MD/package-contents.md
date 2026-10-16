@@ -1,46 +1,30 @@
 # Package Contents
 
-The planned Asset Store UPM release includes the runtime, editor tools, both samples, the package manifest, and PDF documentation for the manual and runtime API. The PDF will be prepared after the documentation is complete.
+Astra Tags includes the runtime tagging system, editor tools for working with tags, and two optional samples. The main parts of the package are described below, with links to the guides that explain how to use them.
 
-The package appears under **Packages > Astra Tags** in the Project window. The paths below are relative to its package root. See [Installation Instructions](installation-instructions.md) to install it and import the optional samples.
+## Main package subsystems
 
-| Content | Purpose |
-|---|---|
-| `Runtime/` | Tag assets, tag sets, the registry, runtime containers, boolean queries, and icon configuration |
-| `Editor/` | Tag authoring, assignment, discovery, settings, registry building, and code generation tools |
-| `Samples~/Examples/` | Gameplay example scripts and an editor scene builder |
-| `Samples~/StressTest/` | Benchmark scripts, configuration, an on-screen HUD, reporting, and an editor scene builder |
-| `package.json` | Package identity, version, minimum Unity version, and sample declarations |
-| PDF documentation | Offline manual and runtime API documentation; filenames and locations will be set when the PDF is generated |
-
-See [Requirements](requirements.md) for the minimum Unity version and dependencies, and the [introduction](introduction.md) for the relationship between the runtime components.
-
-## Runtime
-
-The runtime assembly is `com.electricdrill.astra-tags.Runtime`, with types in the `ElectricDrill.AstraTags` namespace. Use the [runtime API reference](xref:ElectricDrill.AstraTags) for type definitions and signatures.
+| Subsystem | What it provides | Learn more |
+|---|---|---|
+| Tag assets and hierarchies | Reusable tags with parent relationships, stable identities, descriptions, and visual settings | [Creating and Organizing Tags](workflows/creating-tags.md) |
+| Tag sets | Collections of tag references, with exact and hierarchical matching and set operations | [Tag Sets and Matching](workflows/tag-sets.md) |
+| Runtime containers | Reference-counted tags for gameplay states granted by multiple sources, with events and observers for changes | [Runtime container](introduction.md#runtime-container) |
+| Boolean queries | Conditions that combine tag requirements, alternatives, and exclusions | [Tag query](introduction.md#tag-query) |
+| Registry and configuration | Project-wide tag lookups, runtime indices, and settings for the editor tools | [Package Configuration and the Registry](workflows/package-configuration.md) |
 
 ## Editor tools
 
-The editor-only assembly is `com.electricdrill.astra-tags.Editor`. Its content includes:
+The Tag Manager provides a shared window for organizing the hierarchy, editing tags, and finding tagged assets. Inspector controls let you assign tags and recognize them by their colors and icons. Implement [`ITagged`](xref:ElectricDrill.AstraTags.ITagged) to use these tools with [your own assets and components](workflows/taggable-assets.md).
 
-- The Tag Manager and hierarchy editing tools
-- Tag Inspectors, tag-set and query drawers, tag pills, and the hierarchical picker
-- Project settings and registry building
-- Tagged-asset indexing, Unity Search integration, and deletion checks
-- C# accessor generation
-- Icon selection tools and the emoji catalog
+Open the Tag Manager through `Tools > Astra Tags > Tag Manager`.
 
-Open the main authoring window through `Tools > Astra Tags > Tag Manager`.
+## Samples and documentation
 
-## Samples
+The package includes two optional samples:
 
-Both samples contain runtime scripts and an editor scene builder. The scene builders generate scenes and supporting assets; the source sample folders do not contain prebuilt scenes.
+- **Examples**: a gameplay demo with a tag hierarchy, a runtime container, and a query-based immunity check
+- **Stress Test**: benchmarks for registry building and tag matching, with on-screen results and a JSON report
 
-| Sample | Scene-builder menu | Generated scene |
-|---|---|---|
-| Examples | `Tools > Astra Tags > Samples > Build Examples Scene` | `Assets/AstraTagsExamples/AstraTagsExamples.unity` |
-| Stress Test | `Tools > Astra Tags > Samples > Build Stress Test Scene` | `Assets/AstraTagsStressTest/AstraTagsStressTest.unity` |
+See [Import samples](installation-instructions.md#import-samples) to import either sample and build its scene.
 
-The generated scene paths are separate from the location where the sample scripts are installed. Save the current scene before running either builder: both create a new scene in single-scene mode.
-
-The samples in `Samples~` remain inactive until imported through the Package Manager. Follow [Import samples](installation-instructions.md#import-samples) to copy either sample into `Assets` and make its scene-builder menu available.
+PDF documentation covering the manual and runtime API is planned for the release. It will be prepared after the documentation is complete. The [online API reference](xref:ElectricDrill.AstraTags) is available for type definitions and member signatures.

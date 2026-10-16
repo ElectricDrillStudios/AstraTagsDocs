@@ -39,6 +39,12 @@ The [introduction](../DocFx/MD/introduction.md) is the initial conceptual refere
 
 The local `DocFx/templates/astra/ManagedReference.extension.js` hook renders the full namespace as one resolved xref. DocFX 2.78.5 otherwise emits links for empty parent namespaces (such as `ElectricDrill`) that have no generated page. Keep this fix in the template rather than editing generated metadata, and recheck it when upgrading DocFX.
 
+## Reader-focused authoring
+
+The maintainer's editorial review on 2026-10-16 established Astra Framework's Package Contents as the structural reference for [this package's overview](../DocFx/MD/package-contents.md). Describe the main capabilities, useful editor tools, samples, and documentation, then link to usage guides. Keep file inventories, assembly details, editor internals, and scene-builder instructions out of the overview unless a detail is needed to use the package. Apply the same user perspective throughout the manual.
+
+Use inline code for programmatic identifiers, including linked labels (`` [`GameTagSO`](xref:ElectricDrill.AstraTags.GameTagSO) ``). Open workflows with a natural overview of the example and topics covered; the [creating-tags introduction](../DocFx/MD/workflows/creating-tags.md) is the revised reference. These preferences supplement the shared style guide and must survive template synchronization.
+
 ## Session hand-off
 
 One AI session handles one slice. Use the [state](documentation-state.md) to select the next slice and its card to determine inputs, outputs, exclusions, and acceptance. Update the [coverage matrix](documentation-coverage.md) and [image register](documentation-assets.md) with evidence, then record the result in the slice card and state. Do not rely on chat history for the next session.

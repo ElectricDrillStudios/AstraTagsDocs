@@ -41,9 +41,14 @@ The package manifest declares **Examples** and **Stress Test**. Their source is 
 
 The Package Manager's sample import action is separate from package installation. Unity describes it in [Create samples for packages](https://docs.unity3d.com/6000.2/Documentation/Manual/cus-samples.html).
 
-After importing Examples, `Tools > Astra Tags > Samples > Build Examples Scene` becomes available. After importing Stress Test, `Tools > Astra Tags > Samples > Build Stress Test Scene` becomes available.
+After importing a sample, its scene-builder menu becomes available:
 
-Importing the scripts and generating a scene are separate actions. Save the current scene before using either builder: both create a new scene in single-scene mode. See [Package Contents](package-contents.md#samples) for the generated scene locations and the distinction between sample source files and generated assets.
+| Sample | Scene-builder menu | Generated scene |
+|---|---|---|
+| Examples | `Tools > Astra Tags > Samples > Build Examples Scene` | `Assets/AstraTagsExamples/AstraTagsExamples.unity` |
+| Stress Test | `Tools > Astra Tags > Samples > Build Stress Test Scene` | `Assets/AstraTagsStressTest/AstraTagsStressTest.unity` |
+
+Importing the scripts and generating a scene are separate actions. Each builder creates its scene and supporting assets separately from the imported scripts. Save the current scene before using either builder: both create a new scene in single-scene mode.
 
 ## If a package or sample is missing
 
