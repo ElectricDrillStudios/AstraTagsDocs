@@ -1,0 +1,44 @@
+# Documentation image register
+
+Track screenshots separately from text completion. The current foundation pages need no screenshots. The existing Astra logo is a supplied SVG asset, not a pending Unity capture.
+
+## Capture protocol
+
+Image sources live beneath `DocFx/images/`. Use lowercase descriptive names and the paths below as the initial capture specification. Verify exact Inspector labels and menus while authoring the owning slice; adjust a planned capture if the source warrants it and update this register.
+
+- **planned**: a future slice is expected to require the capture; no public placeholder exists yet
+- **missing**: the owning page includes an `IMAGE MISSING` comment and intended image reference, but no verified image exists
+- **available**: the image exists, its content and alt text have been checked, and its relative link resolves
+- **not_needed**: the owning slice explains why text or another existing image is sufficient
+
+When a screenshot is required but unavailable, add the actual intended relative link with the style guide's `IMAGE MISSING` comment and move its register entry to `missing`. Do not create placeholder bitmaps or claim a capture was performed. Build warnings for these references must match register entries; other missing resources remain failures.
+
+Record the Unity/package version and the checked source commit when a capture becomes available. Avoid unrelated assets, account details, and machine-specific paths in the captured UI. A text-complete milestone may still have missing images, which must be listed in the final hand-off.
+
+## Capture specifications
+
+Paths are relative to `DocFx/images/`; public page paths are relative to `DocFx/MD/`.
+
+| ID | Owner | Intended image | Intended page | Capture specification | Availability |
+|---|---|---|---|---|---|
+| IMG03-01 | S03 | `creating-tags/tag-inspector.png` | `workflows/creating-tags.md` | Select a child tag with identity, parent breadcrumb, description and visuals visible; precede with its verified creation-menu path | planned |
+| IMG03-02 | S03 | `creating-tags/icon-picker.png` | `workflows/creating-tags.md` | Show the current emoji/sprite selection UI with a representative tag icon | planned |
+| IMG04-01 | S04 | `package-configuration/project-settings.png` | `workflows/package-configuration.md` | Open Project Settings > Astra Tags with authoring and registry settings visible | planned |
+| IMG04-02 | S04 | `package-configuration/tag-registry.png` | `workflows/package-configuration.md` | Show the registry Inspector and verified rebuild controls; distinguish the runtime asset location in the surrounding text | planned |
+| IMG06-01 | S06 | `taggable-assets/custom-asset.png` | `workflows/taggable-assets.md` | Show the minimal custom tagged asset from the page and its tag editing controls | planned |
+| IMG07-01 | S07 | `runtime-containers/tag-container.png` | `workflows/runtime-containers.md` | Show TagContainer's authored initial-tag configuration | planned |
+| IMG09-01 | S09 | `tag-queries/query-drawer.png` | `workflows/tag-queries.md` | Show the page's nested boolean example in the current query drawer | planned |
+| IMG10-01 | S10 | `tag-manager/overview.png` | `workflows/tag-manager.md` | Show all three panes with a selected hierarchy node and a tagged asset | planned |
+| IMG11-01 | S11 | `finding-tagged-assets/usage.png` | `workflows/finding-tagged-assets.md` | Show asset matches with the current ANY/ALL and descendant controls | planned |
+| IMG11-02 | S11 | `finding-tagged-assets/unity-search.png` | `workflows/finding-tagged-assets.md` | Show a `tag:` query with representative results and explain what is being matched | planned |
+| IMG12-01 | S12 | `inspector-tagging/pill-preferences.png` | `workflows/inspector-tagging.md` | Show pill display preferences and an example that makes the chosen hierarchy view readable | planned |
+| IMG12-02 | S12 | `inspector-tagging/tag-picker.png` | `workflows/inspector-tagging.md` | Show the hierarchical multi-select picker with a checked child tag | planned |
+| IMG14-01 | S14 | `code-generation/settings.png` | `workflows/code-generation.md` | Show the enabled generation toggle and output, namespace, and root-class settings | planned |
+| IMG17-01 | S17 | `samples/examples.png` | `samples/examples.md` | Show the actual generated sample in the relevant execution state after verifying its interaction model | planned |
+| IMG18-01 | S18 | `samples/stress-test.png` | `samples/stress-test.md` | Show the sample HUD and completed measurements with the preset identified | planned |
+
+S02 should add installation screenshots only if the verified distribution flow needs them. Later slices may add narrowly scoped captures; each must have an owner, an exact destination, a useful capture specification, and availability evidence.
+
+## S02 capture decision: 2026-10-16
+
+Requirements, Package Contents, and Installation Instructions need no screenshot (`not_needed`). The maintainer confirmed pure UPM distribution and separate sample import; the numbered steps name the Unity controls and link to official guidance. Text is sufficient for this flow, so S02 introduces no missing screenshot or public image placeholder. An optional future capture of the published product is outside S02's required images; no capture was performed.

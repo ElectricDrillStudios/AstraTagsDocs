@@ -1,4 +1,6 @@
 - name: Docs
-  href: index.md
+  href: DocFx/MD/toc.yml
+  homepage: DocFx/MD/introduction.md
 - name: API
-  href: api/
+  href: api/toc.yml
+  homepage: api/ElectricDrill.AstraTags.yml

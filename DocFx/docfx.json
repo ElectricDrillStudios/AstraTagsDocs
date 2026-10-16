@@ -13,11 +13,12 @@
   ],
   "build": {
     "content": [
-      { "files": ["**/*.{md,yml}"], "exclude": ["_site/**", ".astra-workspace/**", "README.md", "CLAUDE.md", "AGENTS.md", "context/**"] },
-      { "files": ["api/toc.yml"] }
+      { "files": ["index.md", "toc.yml"], "exclude": ["_site/**", ".astra-workspace/**", "README.md", "CLAUDE.md", "AGENTS.md", "context/**", "release-lock.yml"] },
+      { "src": "DocFx/MD", "dest": "MD", "files": ["**/*.{md,yml}"] },
+      { "files": ["api/**/*.{md,yml}"] }
     ],
     "resource": [
-      { "files": ["DocFx/images/**"] }
+      { "src": "DocFx/images", "dest": "images", "files": ["**/*"] }
     ],
     "output": "_site",
     "template": ["default", "modern", "DocFx/templates/astra"],
@@ -25,7 +26,7 @@
     "globalMetadata": {
       "_appName": "Astra Tags",
       "_appTitle": "Astra Tags",
-      "_appLogoPath": "DocFx/images/astra-logo.svg",
+      "_appLogoPath": "images/astra-logo.svg",
       "_enableSearch": true,
       "_enableBreadcrumb": true,
       "_disableContribution": true,

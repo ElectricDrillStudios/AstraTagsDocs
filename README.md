@@ -98,6 +98,10 @@ Local, source-only DocFX previews are useful for experimentation, but release pu
 
 [CLAUDE.md](CLAUDE.md) is the entry point for Claude Code. [AGENTS.md](AGENTS.md) directs other agents to the same instructions. Before authoring documentation, agents must read [the style guide](context/style-guide.md); before describing package behavior, they must also read [the source reference](context/source-reference.md).
 
+The [authoring plan](context/documentation-plan.md) divides Astra Tags documentation into 20 slices, with one AI session per slice. Start with the [current state](context/documentation-state.md) and the selected slice card. The [coverage matrix](context/documentation-coverage.md) tracks feature and API coverage, and the [image register](context/documentation-assets.md) tracks screenshots independently of text completion.
+
+The manual uses `DocFx/MD/`, with workflow, advanced, and sample guides added by their owning slices. The publishing configuration maps these sources to `MD/` URLs and images to `images/`. Review the [package notes](context/package-notes.md) before changing these mappings or synchronizing the template: the root home, root navigation, and DocFX configuration have intentional package customizations.
+
 The shared instructions preserve the Astra documentation conventions: English documentation, Italian conversations with maintainers, and consistent DocFX formatting. They are included in new repositories and updated by `sync --apply`.
 
 Keep package-specific terminology, source checkout hints, and reference pages in [context/package-notes.md](context/package-notes.md). This file is included in new repositories and preserved by sync. Existing repositories may create it when needed; its absence is allowed. Package notes supplement the shared style rules. Do not store credentials or machine-specific private paths in committed notes.
