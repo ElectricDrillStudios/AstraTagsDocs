@@ -83,6 +83,7 @@ At session end:
 3. Update source evidence in coverage and any image requirements in the asset register
 4. Append a dated execution report to the card with changed files, inspected commit/symbols, commands/results, gaps, and next steps
 5. Update the state, recording `done`, `blocked`, or the remaining `in_progress` work and the next eligible slice
+6. Review and commit all slice changes locally, following the [standing commit authorization](package-notes.md#commit-at-the-end-of-every-slice); report the commit and worktree status without asking for confirmation again
 
 Status values are `planned`, `in_progress`, `blocked`, and `done`. Cards and coverage do not maintain competing slice-status fields. Pending external verification can coexist with editorial completion only when prominently recorded in the state and hand-off; a failed acceptance check must not be hidden as an optional check.
 

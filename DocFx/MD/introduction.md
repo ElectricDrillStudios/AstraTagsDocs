@@ -72,6 +72,8 @@ The registry lists the project's registered tags and derives runtime lookups, in
 
 The registry selected in the editor settings steers editor tooling. A runtime registry must also be available to the running game; selecting one in Project Settings alone does not provide that resource.
 
+Follow [Package Configuration and the Registry](workflows/package-configuration.md) to create the resource, reconcile its tag list and verify runtime lookups.
+
 When no active registry is available, tag-set matching can follow parent references instead. The registry also supports identifier resolution and generated C# accessors, so configuring it remains part of setting up a project.
 
 ### Evaluate gameplay conditions

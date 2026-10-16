@@ -13,6 +13,7 @@ For example, a tag set containing `Damage.Fire.Burn` also matches `Damage.Fire` 
 - [Installation Instructions](DocFx/MD/installation-instructions.md): install the UPM package and import its optional samples
 - [Introduction](DocFx/MD/introduction.md): learn the vocabulary, matching model, and main package components
 - [Creating and Organizing Tags](DocFx/MD/workflows/creating-tags.md): create a hierarchy and configure tag names, stable identity, and visuals
+- [Package Configuration and the Registry](DocFx/MD/workflows/package-configuration.md): configure editor tools and provide the game's runtime registry
 - [Requirements](DocFx/MD/requirements.md): check the minimum Unity version and package dependencies
 - [Package Contents](DocFx/MD/package-contents.md): locate the runtime, editor tools, samples, and planned offline documentation
 - [API reference](xref:ElectricDrill.AstraTags): look up runtime types and members

@@ -45,6 +45,10 @@ One AI session handles one slice. Use the [state](documentation-state.md) to sel
 
 Screenshot placeholders do not prevent text completion when they follow the style guide and have an image-register entry. Unexecuted compilation, Unity interaction, and metadata checks must remain explicit. The final report must distinguish editorial completion, technical verification, and image completion.
 
+### Commit at the end of every slice
+
+The maintainer authorizes a local Git commit at the end of every slice without another confirmation. After completing the required checks and hand-off updates, review `git diff` and `git status`, stage all changes belonging to the slice (including context, navigation, image-register and instruction updates), and commit them with a concise English message describing the result. Preserve unrelated pre-existing work and do not include credentials, private source, generated output or temporary validation artifacts. Confirm the resulting commit and worktree status in the final report, alongside any verification gaps. If a slice is interrupted or blocked, commit its reviewable progress and record the exact remaining work without marking it done. This authorization covers local commits; pushing or publishing requires its own authorization.
+
 ## Template synchronization
 
 `index.md`, `toc.yml`, and `DocFx/docfx.json` are template-managed and have intentional package customizations. Before `sync --apply`, review `sync --check`, preserve these changes in Git, and reconcile the three files after synchronization. Do not remove shared instructions or change the managed-file list as a shortcut. Package-specific context and manual pages are preserved by sync.

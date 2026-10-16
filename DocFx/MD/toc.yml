@@ -4,6 +4,8 @@
   items:
     - name: Creating and Organizing Tags
       href: workflows/creating-tags.md
+    - name: Package Configuration and the Registry
+      href: workflows/package-configuration.md
 - name: Requirements
   href: requirements.md
 - name: Package Contents

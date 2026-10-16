@@ -125,6 +125,8 @@ Sprite icons store an asset GUID rather than a hard `Sprite` reference. The pack
 
 Colors, icons, gradients, and descriptions affect presentation and authoring metadata, not tag matching or stable identity.
 
+After creating the hierarchy, follow [Package Configuration and the Registry](package-configuration.md) to make the project tags available to runtime registry lookups.
+
 ## API reference
 
 [GameTagSO](xref:ElectricDrill.AstraTags.GameTagSO) exposes the authored identity, parent, description, and visual properties. Use `FullPath`, `Depth`, and `Ancestors` to inspect the hierarchy; `Ancestors` runs from the immediate parent toward the root. The runtime hierarchy walks have a 64-step guard; keep authored hierarchies shallow rather than relying on arbitrarily deep paths.

@@ -1,6 +1,6 @@
 # Documentation image register
 
-Track screenshots separately from text completion. The foundation and installation pages need no screenshots; S03 has two marked missing captures. The existing Astra logo is a supplied SVG asset, not a pending Unity capture.
+Track screenshots separately from text completion. The foundation and installation pages need no screenshots; S03 and S04 each have two marked missing captures. The existing Astra logo is a supplied SVG asset, not a pending Unity capture.
 
 ## Capture protocol
 
@@ -23,8 +23,8 @@ Paths are relative to `DocFx/images/`; public page paths are relative to `DocFx/
 |---|---|---|---|---|---|
 | IMG03-01 | S03 | `creating-tags/tag-inspector.png` | `workflows/creating-tags.md` | Select `Burn` with Id, `Damage › Fire › Burn` breadcrumb, Parent, Description and Visual controls visible; precede with `Astra Tags > Tag` | missing |
 | IMG03-02 | S03 | `creating-tags/icon-picker.png` | `workflows/creating-tags.md` | Open Burn's Icon > Choose… on Emoji; show Search emoji…, category controls, and the Sprite tab | missing |
-| IMG04-01 | S04 | `package-configuration/project-settings.png` | `workflows/package-configuration.md` | Open Project Settings > Astra Tags with authoring and registry settings visible | planned |
-| IMG04-02 | S04 | `package-configuration/tag-registry.png` | `workflows/package-configuration.md` | Show the registry Inspector and verified rebuild controls; distinguish the runtime asset location in the surrounding text | planned |
+| IMG04-01 | S04 | `package-configuration/project-settings.png` | `workflows/package-configuration.md` | Open Project Settings > Astra Tags with Authoring, Editor Registry, Editor Index and Code Generation visible; use the defaults before registry assignment | missing |
+| IMG04-02 | S04 | `package-configuration/tag-registry.png` | `workflows/package-configuration.md` | Select the default runtime registry after rebuilding the four-tag example; show the tag list, count, hexadecimal signature, Rebuild from project button and up-to-date result; precede with `Astra Tags > Tag Registry` | missing |
 | IMG06-01 | S06 | `taggable-assets/custom-asset.png` | `workflows/taggable-assets.md` | Show the minimal custom tagged asset from the page and its tag editing controls | planned |
 | IMG07-01 | S07 | `runtime-containers/tag-container.png` | `workflows/runtime-containers.md` | Show TagContainer's authored initial-tag configuration | planned |
 | IMG09-01 | S09 | `tag-queries/query-drawer.png` | `workflows/tag-queries.md` | Show the page's nested boolean example in the current query drawer | planned |
@@ -46,3 +46,7 @@ Requirements, Package Contents, and Installation Instructions need no screenshot
 ## S03 capture evidence: 2026-10-16
 
 IMG03-01 and IMG03-02 have matching `IMAGE MISSING` comments and intended image links in [Creating and Organizing Tags](../DocFx/MD/workflows/creating-tags.md). Labels and menus were checked in source at `88fe1b27669aba87dc1f998dbae3088b19954284` (manifest 1.0.0); no Unity capture or substitute bitmap was produced. Capture both in a compatible Unity editor, record the actual Unity version and source commit, and verify the content and relative paths before changing availability to `available`.
+
+## S04 capture evidence: 2026-10-16
+
+IMG04-01 and IMG04-02 have matching `IMAGE MISSING` comments and intended image links in [Package Configuration and the Registry](../DocFx/MD/workflows/package-configuration.md). Project settings, defaults, creation path and registry Inspector controls were verified against source at `88fe1b27669aba87dc1f998dbae3088b19954284` (manifest 1.0.0). No Unity capture or substitute bitmap was produced. Capture the specified states in a compatible Unity editor, record the actual Unity version and source commit, and verify the content and relative paths before changing availability to `available`.
