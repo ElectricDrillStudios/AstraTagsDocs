@@ -1,5 +1,4 @@
 .config/dotnet-tools.json
-.github/workflows/publish-docs.yml
 .gitignore
 LICENSE
 CLAUDE.md

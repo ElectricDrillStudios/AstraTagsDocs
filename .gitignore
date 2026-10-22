@@ -1,6 +1,5 @@
-# Generated documentation and private build hand-off files.
+# Local DocFX output and private build hand-off files. docs/ is committed: GitHub Pages serves it.
 _site/
-docs/
 .astra-docfx.json
 .astra-workspace/
 __pycache__/
