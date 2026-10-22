@@ -1,7 +1,5 @@
-# Local DocFX output and private build hand-off files. docs/ is committed: GitHub Pages serves it.
-_site/
-.astra-docfx.json
-.astra-workspace/
+# Local DocFX API metadata. docs/ is committed: GitHub Pages serves it.
+/api/
 __pycache__/
 *.csproj
 *.sln

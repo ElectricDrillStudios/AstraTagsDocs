@@ -4,30 +4,27 @@ Use this guide before inspecting implementation or documenting package behavior.
 
 ## Identify the documented package
 
-Read `astra-docs.json` for the public documentation identity and `release-lock.yml` for the package being documented:
+Read `astra-docs.json` for the package being documented:
 
-| Lock field | Meaning |
+| Field | Meaning |
 |---|---|
-| `package.id` | Unity package identifier |
-| `package.assembly` | Runtime assembly used for API generation |
-| `package.namespace` | Root namespace for package API references |
-| `package.source.repository` | Authoritative source repository |
-| `package.source.path` | Package directory relative to that repository (`.` means its root) |
-| `package.source.ref` | Revision selected for the documentation build |
-| `package.source.files` | Source selection used for API generation |
-| `dependencies` | Private Astra dependencies required by the build |
-| `xref.astra` | Published documentation maps for cross-package API links |
+| `package_id` | Unity package identifier |
+| `assembly` | Runtime assembly used for API generation (the `.csproj` DocFX loads) |
+| `namespace` | Root namespace for package API references |
+| `source_repository` | Authoritative private source repository |
+| `unity_project` | Local Unity project that contains the package, relative to this repository; DocFX generates the API from it |
+| `pages_url` | Public site URL |
 
-Values in the unconfigured template are examples. Use the actual configured package identity and revision when documenting a package.
+Values in the unconfigured template are examples. Use the actual configured package identity when documenting a package.
 
 ## Locate and verify source
 
 1. Read `context/package-notes.md` when present for repository-relative checkout hints and package-specific reference pages
-2. Locate an available checkout of `package.source.repository`, then resolve `package.source.path` inside it. The lock path is not relative to this documentation repository
-3. Verify that the source revision matches `package.source.ref`. If working from a different revision, make the mismatch explicit before using it to describe behavior
+2. Locate an available checkout of `source_repository`, or the package inside the local Unity project named by `unity_project`. Verify its Git remote and package manifest
+3. Verify that the inspected revision is the one the documentation is meant to describe. If it differs, make the mismatch explicit before using it to describe behavior
 4. Inspect the relevant implementation and public API before writing claims or examples
 
-The lock identifies source; it does not guarantee a local checkout or grant access. If the required source is unavailable, state the verification gap and request its location or a relevant excerpt. Do not guess a machine-specific path, infer behavior from an old page alone, or copy private source into this public repository.
+`astra-docs.json` identifies source; it does not guarantee a local checkout or grant access. If the required source is unavailable, state the verification gap and request its location or a relevant excerpt. Do not guess a machine-specific path, infer behavior from an old page alone, or copy private source into this public repository.
 
 ## Practical lookup guide
 
@@ -44,6 +41,6 @@ Confirm exact casing and user-visible labels. For dependency features, verify th
 
 ## Documentation and API generation
 
-Authored Markdown and `toc.yml` live at the repository root or in existing topic folders. Images live under `DocFx/images/`; resolve links relative to the page being edited. DocFX configuration lives in `DocFx/docfx.json`.
+Authored Markdown and `toc.yml` live at the repository root or in existing topic folders. Images live under `DocFx/images/`; resolve links relative to the page being edited. DocFX configuration lives in `docfx.json` at the repository root.
 
-Release publications use the private publishing host and the source revisions selected by `release-lock.yml`, as described in the README. Generated site output, API metadata, and build hand-off files are not authored documentation. Keep handwritten examples and xrefs aligned with the same package revision used for API generation.
+The site is built locally with DocFX from the Unity project named by `unity_project`, as described in the README, and the generated `docs/` folder is committed. Generated site output and API metadata are not authored documentation. Keep handwritten examples and xrefs aligned with the package revision present in that Unity project.

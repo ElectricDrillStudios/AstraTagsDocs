@@ -4,7 +4,7 @@ Start every authoring session with the [documentation state](documentation-state
 
 ## Source checkout hints
 
-Resolve package identity and source selection through `astra-docs.json` and `release-lock.yml`. Find an existing checkout of the lock's source repository, verify its Git remote and manifest, and compare its revision with the lock ref before using it. Local checkouts were found as embedded packages in Unity development projects during planning; their machine-specific locations must not be committed here.
+Resolve package identity and source selection through `astra-docs.json`. Find an existing checkout of its `source_repository`, or the package inside the Unity project named by `unity_project`; verify its Git remote and manifest, and compare its revision with the one intended for the documentation before using it. Local checkouts were found as embedded packages in Unity development projects during planning; their machine-specific locations must not be committed here.
 
 Record the actual inspected commit in the [state](documentation-state.md) and session report. A local `origin/main` is evidence of the last fetched revision, not proof of the current remote head. If the source has moved, assess the affected coverage rows before authoring against it.
 
@@ -57,6 +57,6 @@ The maintainer authorizes a local Git commit at the end of every slice without a
 
 ## Template synchronization
 
-`index.md`, `toc.yml`, and `DocFx/docfx.json` are template-managed and have intentional package customizations. Before `sync --apply`, review `sync --check`, preserve these changes in Git, and reconcile the three files after synchronization. Do not remove shared instructions or change the managed-file list as a shortcut. Package-specific context and manual pages are preserved by sync.
+`index.md`, `toc.yml`, and `docfx.json` are template-managed and have intentional package customizations. Before `sync --apply`, review `sync --check`, preserve these changes in Git, and reconcile the three files after synchronization. Do not remove shared instructions or change the managed-file list as a shortcut. Package-specific context and manual pages are preserved by sync.
 
-The shared DocFX configuration is consumed by a generated configuration at the repository root. Its paths are relative to that root, not to the `DocFx/` directory. Do not invoke `dotnet docfx DocFx/docfx.json` directly and assume the same path resolution as the publishing host.
+`docfx.json` sits at the repository root and its paths are relative to that root. Run DocFX from the root (`dotnet docfx docfx.json --serve`); it builds into the committed `docs/` folder.

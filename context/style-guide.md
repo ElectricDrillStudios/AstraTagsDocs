@@ -70,7 +70,7 @@
 
 - Prefer a local cross-reference over repeating a full explanation
 - When mentioning a concept that is defined later on the same page, prefer a same-file anchor link
-- Use the documented package's actual root namespace from `package.namespace` in `release-lock.yml`, and verify the complete UID against generated API metadata or the source type
+- Use the documented package's actual root namespace from `namespace` in `astra-docs.json`, and verify the complete UID against generated API metadata or the source type
 - Resolve page links relative to the current file; preserve the existing documentation folder structure
 
 ---
@@ -246,5 +246,5 @@ Avoid HTML when standard markdown is sufficient.
 - Do not use `#####` headings for labels like pros, cons, or notes
 - Do not use raw filesystem paths when you actually mean Unity menu paths
 - Do not duplicate explanations that already exist elsewhere in the docs
-- Do not hand-edit generated site output under `_site/` or `docs/`, generated API metadata, or build hand-off files
+- Do not hand-edit generated site output under `docs/` or generated API metadata under `api/`
 - Do not introduce naming, menu labels, or API signatures that are not confirmed by the package source

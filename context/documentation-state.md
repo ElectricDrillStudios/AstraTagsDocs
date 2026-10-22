@@ -24,7 +24,7 @@ This is the sole source of slice status. Read it with the [plan](documentation-p
 | Source worktree | Clean when S06 inspected it; no revision drift from S01 |
 | Manifest version | 1.0.0 |
 | Release availability | The source changelog includes Unreleased changes; commit coverage does not establish release availability |
-| Lock selection | Read `release-lock.yml`; the current branch ref can advance between sessions |
+| Source selection | Read `astra-docs.json`; the source branch can advance between sessions |
 | Remote freshness | No network fetch was performed; remote head was not independently verified |
 
 Do not copy a local checkout path into this public file. Recheck source drift at the start of each session and identify which coverage rows need another review.

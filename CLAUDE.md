@@ -23,14 +23,13 @@ Read the documents required by the task before making changes; they are not auto
 
 | Purpose | Location |
 |---|---|
-| Package identity and public site URL | `astra-docs.json` |
-| Package source repository, path, revision, assembly, namespace, and dependencies | `release-lock.yml` |
+| Package identity, public site URL, assembly, namespace, source repository, and local Unity project | `astra-docs.json` |
 | Documentation landing page and navigation | `index.md`, `toc.yml` |
 | Authored pages | Markdown at the repository root or in existing topic folders |
-| DocFX configuration and images | `DocFx/docfx.json`, `DocFx/images/` |
-| Generated output and build hand-off | `_site/`, `docs/`, `.astra-docfx.json`, `.astra-workspace/` |
+| DocFX configuration and images | `docfx.json`, `DocFx/images/` |
+| Generated site (committed, served by GitHub Pages) and API metadata | `docs/`, `api/` |
 
-Edit authored sources; do not hand-edit generated output, API metadata, or private build hand-off files. Keep private package source and credentials out of this public repository. Do not assume the `DocFx/MD/` layout used by other Astra documentation repositories.
+Edit authored sources; do not hand-edit generated output or API metadata. Keep private package source and credentials out of this public repository. Do not assume the `DocFx/MD/` layout used by other Astra documentation repositories.
 
 ## Shared instructions and package notes
 
@@ -39,6 +38,6 @@ Edit authored sources; do not hand-edit generated output, API metadata, or priva
 ## Verification
 
 - For documentation edits, check links, anchors, xrefs, image paths, navigation, and consistency with the package source. Mark unavailable screenshots as prescribed by the style guide
-- For release-lock changes, run `python3 tools/astra_docs.py validate`
+- For DocFX configuration or API-related changes, build with `dotnet docfx docfx.json` and review the warnings
 - For toolkit or template integration changes, run `python3 -m unittest discover -s tests -v`
 - Use the README's preview and publishing guidance; report any checks that could not be performed

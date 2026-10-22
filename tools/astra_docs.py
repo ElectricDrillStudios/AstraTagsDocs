@@ -1,11 +1,10 @@
 #!/usr/bin/env python3
-"""Bootstrap, validate, build, and update Astra Docs repositories."""
+"""Bootstrap and update Astra Docs repositories."""
 from __future__ import annotations
 
 import argparse
 import json
 import re
-import os
 import shutil
 import subprocess
 import sys
@@ -13,18 +12,22 @@ import tempfile
 import time
 from pathlib import Path
 
-from lockfile import LockfileError, load_and_validate
-
 
 ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_OWNER = "ElectricDrillStudios"
 DEFAULT_TEMPLATE = f"{DEFAULT_OWNER}/AstraDocsTemplate"
-TOKEN_NAME = "ASTRA_SOURCE_READ_TOKEN"
-HOST_ROOT_NAME = "ASTRA_HOST_ROOT"
 PAGES_BRANCH = "main"
 PAGES_PATH = "/docs"
 TEMPLATE_BRANCH = "main"
-DEFAULT_SOURCE_PATH = "."
+DEFAULT_UNITY_PROJECT = "../AstraPublishing_6_3_8_2D"
+RENDERED_FILES = {"docfx.json", "index.md"}
+PLACEHOLDERS = {
+    "{{TITLE}}": "title",
+    "{{PAGES_URL}}": "pages_url",
+    "{{PACKAGE_NAME}}": "package_name",
+    "{{ASSEMBLY}}": "assembly",
+    "{{UNITY_PROJECT}}": "unity_project",
+}
 
 
 def run(*args: str, cwd: Path | None = None) -> None:
@@ -113,11 +116,6 @@ def repository_name(name: str) -> str:
     return f"Astra{name}Docs"
 
 
-def source_path_or_repository_root(value: str | None) -> str:
-    """Use the repository root when the private repository is one Unity package."""
-    return value or DEFAULT_SOURCE_PATH
-
-
 def read_config(root: Path) -> dict[str, str]:
     path = root / "astra-docs.json"
     try:
@@ -130,18 +128,20 @@ def read_config(root: Path) -> dict[str, str]:
     return data
 
 
+def render_text(text: str, config: dict[str, str]) -> str:
+    for placeholder, key in PLACEHOLDERS.items():
+        if placeholder in text:
+            value = config.get(key)
+            if not isinstance(value, str) or not value:
+                raise ValueError(f"astra-docs.json.{key} is required to render {placeholder}")
+            text = text.replace(placeholder, value)
+    return text
+
+
 def render_template(source: Path, destination: Path, config: dict[str, str]) -> None:
-    text = source.read_text(encoding="utf-8")
-    text = (text.replace("{{TITLE}}", config["title"])
-                .replace("{{PAGES_URL}}", config["pages_url"])
-                .replace("{{PACKAGE_NAME}}", config["package_name"]))
+    text = render_text(source.read_text(encoding="utf-8"), config)
     destination.parent.mkdir(parents=True, exist_ok=True)
     destination.write_text(text, encoding="utf-8")
-
-
-def write_lock(root: Path, args: argparse.Namespace) -> None:
-    lock = f"""# Public, reviewable input for one documentation/release build.\nversion: 1\npackage:\n  id: {args.package_id}\n  assembly: {args.assembly}\n  namespace: {args.namespace}\n  source:\n    repository: {args.source_repo}\n    path: {args.source_path}\n    files: Runtime/**/*.cs\n    ref: {args.ref}\ndependencies: []\nxref:\n  unity: https://normanderwan.github.io/UnityXrefMaps/xrefmap.yml\n  astra: []\n"""
-    (root / "release-lock.yml").write_text(lock, encoding="utf-8")
 
 
 def configure_new_repository(root: Path, args: argparse.Namespace) -> None:
@@ -151,12 +151,15 @@ def configure_new_repository(root: Path, args: argparse.Namespace) -> None:
         "package_name": args.package_name,
         "title": args.title or f"Astra {args.package_name}",
         "pages_url": f"https://{args.owner.lower()}.github.io/{repo}/",
+        "package_id": args.package_id,
+        "assembly": args.assembly,
+        "namespace": args.namespace,
+        "source_repository": args.source_repo,
+        "unity_project": args.unity_project,
     }
     (root / "astra-docs.json").write_text(json.dumps(config, indent=2) + "\n", encoding="utf-8")
-    render_template(root / "DocFx/docfx.json", root / "DocFx/docfx.json", config)
-    render_template(root / "README.md", root / "README.md", config)
-    render_template(root / "index.md", root / "index.md", config)
-    write_lock(root, args)
+    for relative in ("docfx.json", "README.md", "index.md"):
+        render_template(root / relative, root / relative, config)
 
 
 def command_new(args: argparse.Namespace) -> None:
@@ -191,47 +194,6 @@ def command_new(args: argparse.Namespace) -> None:
     print(f"Created https://{args.owner.lower()}.github.io/{repo}/")
 
 
-def command_validate(args: argparse.Namespace) -> None:
-    lock = Path(args.lock).resolve()
-    data = load_and_validate(lock)
-    target = data["package"]
-    print(f"valid: {target['id']} ({target['assembly']}) at {target['source']['repository']}@{target['source']['ref']}")
-
-
-def replace_docs_folder(site: Path, docs: Path) -> None:
-    """Swap the committed docs/ folder for a freshly built site."""
-    if not (site / "index.html").is_file():
-        raise ValueError(f"not a built site: {site}")
-    if docs.exists():
-        shutil.rmtree(docs)
-    shutil.copytree(site, docs)
-    # Stop GitHub Pages from running Jekyll over the generated site.
-    (docs / ".nojekyll").touch()
-
-
-def command_build(args: argparse.Namespace) -> None:
-    root = Path(args.root).resolve()
-    command_validate(argparse.Namespace(lock=root / "release-lock.yml"))
-    if not os.environ.get(TOKEN_NAME):
-        raise ValueError(f"set {TOKEN_NAME} to the fine-grained read-only contents token before building")
-    host_value = args.host_root or os.environ.get(HOST_ROOT_NAME)
-    if not host_value:
-        raise ValueError(f"pass --host-root or set {HOST_ROOT_NAME} to the AstraPublishingHost checkout")
-    host = Path(host_value).resolve()
-    build_script = host / "tools" / "build_docs.py"
-    if not build_script.is_file():
-        raise ValueError(f"not an AstraPublishingHost checkout: {host}")
-    with tempfile.TemporaryDirectory(prefix="astra-site-") as temporary:
-        site = Path(temporary) / "site"
-        command = [sys.executable, str(build_script), "--lock", str(root / "release-lock.yml"),
-                   "--docs-root", str(root), "--host-root", str(host), "--output", str(site)]
-        if args.unity_path:
-            command.extend(["--unity-path", args.unity_path])
-        run(*command)
-        replace_docs_folder(site, root / "docs")
-    print(f"docs/ rebuilt; review `git status`, then commit and push to publish")
-
-
 def template_root(args: argparse.Namespace) -> tuple[Path, tempfile.TemporaryDirectory[str] | None]:
     if args.template_path:
         return Path(args.template_path).resolve(), None
@@ -252,10 +214,8 @@ def command_sync(args: argparse.Namespace) -> None:
         for relative in filter(None, managed):
             source = source_root / relative
             destination = root / relative
-            if relative in {"DocFx/docfx.json", "index.md"}:
-                expected = (source.read_text(encoding="utf-8").replace("{{TITLE}}", config["title"])
-                            .replace("{{PAGES_URL}}", config["pages_url"])
-                            .replace("{{PACKAGE_NAME}}", config["package_name"]))
+            if relative in RENDERED_FILES:
+                expected = render_text(source.read_text(encoding="utf-8"), config)
                 actual = destination.read_text(encoding="utf-8") if destination.exists() else ""
                 different = expected != actual
             else:
@@ -263,7 +223,7 @@ def command_sync(args: argparse.Namespace) -> None:
             if different:
                 changed.append(relative)
                 if args.apply:
-                    if relative in {"DocFx/docfx.json", "index.md"}:
+                    if relative in RENDERED_FILES:
                         render_template(source, destination, config)
                     else:
                         destination.parent.mkdir(parents=True, exist_ok=True)
@@ -289,23 +249,14 @@ def parser() -> argparse.ArgumentParser:
     create.add_argument("--package-id", required=True)
     create.add_argument("--assembly", required=True)
     create.add_argument("--namespace", required=True)
-    create.add_argument("--source-repo", required=True, help="private OWNER/REPOSITORY")
-    create.add_argument("--source-path", help="path to the Unity package within the repository")
-    create.add_argument("--ref", default="main")
+    create.add_argument("--source-repo", required=True, help="private OWNER/REPOSITORY of the documented package")
+    create.add_argument("--unity-project", default=DEFAULT_UNITY_PROJECT, help="local Unity project that contains the package, relative to the docs repository (default: %(default)s)")
     create.add_argument("--title")
     create.add_argument("--owner", default=DEFAULT_OWNER, help="GitHub organization or user that will own the public docs repository")
     create.add_argument("--template", default=DEFAULT_TEMPLATE)
     create.add_argument("--directory")
     create.add_argument("--resume", action="store_true", help="continue a failed bootstrap for the same clean checkout")
     create.set_defaults(handler=command_new)
-    validate = commands.add_parser("validate", help="validate a release lock without credentials")
-    validate.add_argument("--lock", default="release-lock.yml")
-    validate.set_defaults(handler=command_validate)
-    build = commands.add_parser("build", help="build the site with the private publishing host into docs/")
-    build.add_argument("--root", default=".")
-    build.add_argument("--host-root", help=f"AstraPublishingHost checkout (default: ${HOST_ROOT_NAME})")
-    build.add_argument("--unity-path", help="absolute Unity executable path (default: $UNITY_PATH or $UNITY_EXECUTABLE)")
-    build.set_defaults(handler=command_build)
     sync = commands.add_parser("sync", help="update only template-managed files")
     mode = sync.add_mutually_exclusive_group(required=True)
     mode.add_argument("--check", action="store_true")
@@ -319,11 +270,9 @@ def parser() -> argparse.ArgumentParser:
 
 def main() -> int:
     args = parser().parse_args()
-    if getattr(args, "command", None) == "new":
-        args.source_path = source_path_or_repository_root(args.source_path)
     try:
         args.handler(args)
-    except (LockfileError, ValueError, OSError, RuntimeError, subprocess.CalledProcessError) as error:
+    except (ValueError, OSError, RuntimeError, subprocess.CalledProcessError) as error:
         print(f"error: {error}", file=sys.stderr)
         return 2
     return 0

@@ -6,11 +6,10 @@ AGENTS.md
 context/style-guide.md
 context/source-reference.md
 index.md
-DocFx/docfx.json
+docfx.json
 DocFx/filterConfig.yml
 DocFx/styles/astra.css
 DocFx/templates/astra/public/main.css
 DocFx/images/astra-logo.svg
 toc.yml
 tools/astra_docs.py
-tools/lockfile.py

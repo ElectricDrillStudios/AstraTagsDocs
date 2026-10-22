@@ -2,5 +2,10 @@
   "schema": 1,
   "package_name": "Tags",
   "title": "Astra Tags",
-  "pages_url": "https://electricdrillstudios.github.io/AstraTagsDocs/"
+  "pages_url": "https://electricdrillstudios.github.io/AstraTagsDocs/",
+  "package_id": "individual.emanuele-cisotto.astra-tags",
+  "assembly": "com.electricdrill.astra-tags.Runtime",
+  "namespace": "ElectricDrill.AstraTags",
+  "source_repository": "Cis8/AstraTags",
+  "unity_project": "../AstraPublishing_6_3_8_2D"
 }

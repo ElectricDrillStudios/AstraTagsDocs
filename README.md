@@ -1,17 +1,17 @@
 # Astra Tags Docs
 
-This is the public documentation repository for an Astra Unity package. It contains authored documentation, the public release lock, and the generated site in `docs/`, which GitHub Pages serves directly from `main`. It never contains private package source code.
+This is the public documentation repository for an Astra Unity package. It contains authored documentation and the generated site in `docs/`, which GitHub Pages serves directly from `main`. It never contains private package source code.
+
+The site is built locally, always on the same machine: DocFX reads the package's API from a local Unity project (`unity_project` in `astra-docs.json`), generates the site into `docs/`, and you commit and push the result.
 
 ## Create a documentation project from this template
 
-Use this procedure when adding documentation for a new package. It creates a public `ElectricDrillStudios/Astra<PackageName>Docs` repository from this template, configures its public identity and release lock, enables GitHub Pages from the `docs/` folder of `main`, and pushes the initial configuration.
+Use this procedure when adding documentation for a new package. It creates a public `ElectricDrillStudios/Astra<PackageName>Docs` repository from this template, configures its public identity and DocFX project, enables GitHub Pages from the `docs/` folder of `main`, and pushes the initial configuration.
 
 ### Prerequisites
 
-Before creating the first project, prepare the shared publishing environment:
-
-- A local Linux machine with the supported Unity LTS editor, Git, Python 3.11 or later, and .NET SDK 8 (verify it with `dotnet --info`). Documentation is built on this machine, not on GitHub.
-- A local checkout of the private publishing host, `Cis8/AstraPublishingHost`. If Unity opens it for the first time, commit the `.meta` files it creates to that private repository.
+- The build machine has the .NET SDK 8 (verify it with `dotnet --info`), Git, and Python 3.11 or later.
+- A Unity project that always stays available on the build machine and contains the package (embedded or local), so Unity has generated `<assembly>.csproj` for it. By default the docs repository expects it next to itself, at `../AstraPublishing_6_3_8_2D`.
 - The `ElectricDrillStudios/AstraDocsTemplate` GitHub repository must have **Template repository** enabled in its General settings.
 - An authenticated GitHub CLI session that may create public repositories in `ElectricDrillStudios` and configure their Pages settings. Authenticate it for HTTPS Git operations before bootstrapping:
 
@@ -20,21 +20,12 @@ Before creating the first project, prepare the shared publishing environment:
   gh auth setup-git
   gh auth status
   ```
-- A fine-grained personal access token for local builds. Create it under the `Cis8` resource owner, grant it **Contents: Read-only**, and restrict it to `Cis8/AstraPublishingHost`, the target package repository, and any private Astra dependency repositories that may appear in the release lock. Use a short, manageable expiry. No write, Administration, or Workflow permission is needed.
 
-Export the token as `ASTRA_SOURCE_READ_TOKEN` only in the shell that runs a build. Keep it out of committed files, `.env` files, and `release-lock.yml`; it is never stored in GitHub.
-
-The build reads the Unity executable path from `UNITY_EXECUTABLE` (or `UNITY_PATH`) in the shell that runs it, for example:
-
-```text
-UNITY_EXECUTABLE=/opt/Unity/Hub/Editor/2022.3.62f1/Editor/Unity
-```
-
-Keep the editor matched to the Unity version required by the publishing host.
+No token, runner, or GitHub secret is involved: nothing is built on GitHub.
 
 ### Bootstrap the repository
 
-Clone this template repository and run the bootstrap command from that checkout. Replace the example values with the package's real identity and private source location.
+Clone this template repository and run the bootstrap command from that checkout. Replace the example values with the package's real identity.
 
 ```sh
 git clone https://github.com/ElectricDrillStudios/AstraDocsTemplate.git
@@ -44,13 +35,12 @@ python3 tools/astra_docs.py new Health \
   --package-id com.electricdrill.astra-health \
   --assembly com.electricdrill.astra-health.Runtime \
   --namespace 'ElectricDrill.Astra.Health' \
-  --source-repo Cis8/AstraHealth \
-  --source-path Packages/com.electricdrill.astra-health
+  --source-repo Cis8/AstraHealth
 ```
 
-`Health` must be a PascalCase name made from letters and digits. The command creates `ElectricDrillStudios/AstraHealthDocs` and a local `AstraHealthDocs` checkout inside the current directory. Omit `--source-path` when the private repository is the package itself: the source path then defaults to `.`. For a Unity project or monorepo, pass the package directory explicitly, for example `Packages/com.electricdrill.astra-health`.  Use `--ref` to choose an initial source revision; it defaults to `main`. Use `--owner` only when the public repository belongs to a different GitHub organization or user.
+`Health` must be a PascalCase name made from letters and digits. The command creates `ElectricDrillStudios/AstraHealthDocs` and a local `AstraHealthDocs` checkout inside the current directory. `--assembly` is the runtime assembly whose `<assembly>.csproj` DocFX loads, and `--source-repo` is the private repository of the package, recorded for authors and agents. Use `--unity-project` when the local Unity project is not at `../AstraPublishing_6_3_8_2D` relative to the docs repository, and `--owner` only when the public repository belongs to a different GitHub organization or user.
 
-The bootstrap command enables GitHub Pages with the `docs/` folder of `main` as its source. If GitHub CLI is not logged in, the command starts its browser-based HTTPS login automatically. GitHub shows an error for the Pages site until the first build is pushed.
+The bootstrap command writes the identity to `astra-docs.json`, renders `docfx.json` from it, and enables GitHub Pages with the `docs/` folder of `main` as its source. If GitHub CLI is not logged in, the command starts its browser-based HTTPS login automatically. GitHub shows an error for the Pages site until the first build is pushed.
 
 If a bootstrap is interrupted after GitHub creates the repository, authenticate again and rerun the same command with `--resume`. The command verifies that the local checkout belongs to the intended repository and refuses to overwrite any local changes.
 
@@ -58,43 +48,28 @@ If a bootstrap is interrupted after GitHub creates the repository, authenticate 
 
 Confirm under **Settings → Pages** that the site is built from the `main` branch and the `/docs` folder. Apply branch protection to `main` before allowing routine contributions.
 
-The new repository's `release-lock.yml` selects the primary package revision and is safe to review publicly: it names repositories, paths, assemblies, and revisions but contains no credentials or source files. Add every private Astra dependency under `dependencies` and its published documentation URL under `xref.astra` when cross-package API links are needed. Use `main` while developing; pin every `ref` to a tag or immutable commit SHA before a release.
+Add the published `xrefmap.yml` of every Astra dependency to `build.xref` in `docfx.json` when cross-package API links are needed.
 
-### Build and publish
+### Preview and publish
 
-Commit authored Markdown and any lockfile edits, then validate the lock:
-
-```sh
-cd ../AstraHealthDocs
-python3 tools/astra_docs.py validate
-```
-
-Build the site with the private publishing host. The command validates the lock, runs the host's `build_docs.py` into a temporary directory, and only if the build succeeds replaces the committed `docs/` folder with the result and adds `docs/.nojekyll` (it stops GitHub Pages from running Jekyll over the generated site):
+From the repository root:
 
 ```sh
-export ASTRA_SOURCE_READ_TOKEN='github_pat_...'
-export UNITY_EXECUTABLE=/opt/Unity/Hub/Editor/2022.3.62f1/Editor/Unity
-
-python3 tools/astra_docs.py build --host-root /path/to/AstraPublishingHost
+dotnet tool restore
+dotnet docfx docfx.json --serve
 ```
 
-Set `ASTRA_HOST_ROOT` to the host checkout to omit `--host-root`; pass `--unity-path` instead of `UNITY_EXECUTABLE` for a one-off editor path. Then review `git status` and publish:
+DocFX generates the API metadata under `api/` (not committed), builds the site into `docs/`, and serves it at <http://localhost:8080>. The preview is the same folder GitHub Pages publishes. To build without serving, run `dotnet docfx docfx.json`.
+
+To publish, commit the authored changes together with the regenerated `docs/` folder and push to `main`:
 
 ```sh
-git add docs && git commit -m "Update generated documentation" && git push
+git add -A && git commit -m "Update documentation" && git push
 ```
 
-GitHub Pages publishes the pushed `docs/` folder within a minute or two. The host checks the generated site for private build references before it finishes, but review the changes before pushing.
-
-Before the first release, run the package's API comparison spike: generate API metadata both from the Unity publishing host and from isolated sources, then compare their UIDs. Resolve any differences before pinning the release lock.
+GitHub Pages publishes the pushed `docs/` folder within a minute or two. DocFX does not delete files for pages you removed: delete stale files from `docs/` by hand, and keep `docs/.nojekyll`, which stops GitHub Pages from running Jekyll over the generated site.
 
 ## Maintain an existing documentation repository
-
-Validate the release lock before publishing or reviewing a change:
-
-```sh
-python3 tools/astra_docs.py validate
-```
 
 To adopt a newer version of the shared template files, first check the differences and then apply them deliberately:
 
@@ -103,9 +78,7 @@ python3 tools/astra_docs.py sync --check --template-ref v1.0.0
 python3 tools/astra_docs.py sync --apply --template-ref v1.0.0
 ```
 
-`sync` updates only the paths listed in `.astra-managed-files`. It preserves package-authored Markdown, images, `release-lock.yml`, and `astra-docs.json`; the landing page, navigation, and logo listed in the manifest are template-managed. Shared AI instructions are also template-managed, as described below.
-
-Local, source-only DocFX previews are useful for experimentation, but the committed `docs/` folder is always built with `Cis8/AstraPublishingHost`.
+`sync` updates only the paths listed in `.astra-managed-files`. It preserves package-authored Markdown, images, and `astra-docs.json`; the landing page, navigation, `docfx.json`, and logo listed in the manifest are template-managed. `docfx.json` and `index.md` are rendered from `astra-docs.json`, which must contain `assembly` and `unity_project`. Shared AI instructions are also template-managed, as described below.
 
 ## Documentation instructions for AI agents
 

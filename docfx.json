@@ -1,11 +1,17 @@
 {
   "metadata": [
     {
-      "src": [],
+      "src": [
+        {
+          "src": "../AstraPublishing_6_3_8_2D",
+          "files": ["com.electricdrill.astra-tags.Runtime.csproj"],
+          "exclude": ["Editor/**", "bin/**"]
+        }
+      ],
       "globalNamespaceId": "Global",
-      "filter": "filterConfig.yml",
+      "filter": "DocFx/filterConfig.yml",
       "dest": "api",
-      "allowCompilationErrors": false,
+      "allowCompilationErrors": true,
       "properties": {
         "ProduceReferenceAssembly": "true"
       }
@@ -13,14 +19,14 @@
   ],
   "build": {
     "content": [
-      { "files": ["index.md", "toc.yml"], "exclude": ["_site/**", ".astra-workspace/**", "README.md", "CLAUDE.md", "AGENTS.md", "context/**", "release-lock.yml"] },
+      { "files": ["index.md", "toc.yml"] },
       { "src": "DocFx/MD", "dest": "MD", "files": ["**/*.{md,yml}"] },
       { "files": ["api/**/*.{md,yml}"] }
     ],
     "resource": [
       { "src": "DocFx/images", "dest": "images", "files": ["**/*"] }
     ],
-    "output": "_site",
+    "output": "docs",
     "template": ["default", "modern", "DocFx/templates/astra"],
     "disableGitFeatures": true,
     "globalMetadata": {
@@ -32,6 +38,6 @@
       "_disableContribution": true,
       "_baseUrl": "https://electricdrillstudios.github.io/AstraTagsDocs/"
     },
-    "xref": []
+    "xref": ["https://normanderwan.github.io/UnityXrefMaps/xrefmap.yml"]
   }
 }
