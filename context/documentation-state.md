@@ -4,9 +4,10 @@ This is the sole source of slice status. Read it with the [plan](documentation-p
 
 ## Current hand-off
 
-- Last updated: 2026-10-16
+- Last updated: 2026-10-29
 - Active slice: none
-- Next slice: [S07](slices/S07.md) (runtime containers)
+- Next slice: [R01](slices/R01.md) (voice revision of the pages written in S02 through S06 under the first-time-reader rules; inserted on 2026-10-29), then [S07](slices/S07.md) (runtime containers)
+- Editorial follow-up (2026-10-29): the introduction was rewritten for first-time readers and now serves as the in-repository voice reference; the shared style guide gained *Writing for a First-Time Reader* with a reader test (template branch `docs/first-time-reader-guidelines`, pending merge). No slice was started
 - Latest editorial follow-up: repository-wide identifier formatting committed separately as `c78beda`; Package Contents now presents user capabilities, sample setup details live in Installation Instructions, and Creating Tags opens with a guided overview. Shared style rules and persistent package notes record these preferences; no new slice was started
 - Editorial progress: 6 of 20 slices done; S06 adds the custom `ITagged` asset/component guide, serialized backing-field/getter requirements, Inspector editing, assignment storage and source-verified discovery scope, with navigation and entry links
 - Technical verification: both S06 scripts compile with 0 warnings/errors. DocFX succeeds with 0 errors and exactly 5 registered missing-image warnings. All local Markdown/HTML links, anchors and resources pass except those marked images; two S06 API xrefs resolve in unchanged S01 metadata, with all 16 runtime inputs matching byte for byte. See the [S06 report](slices/S06.md#execution-report-2026-10-16) and evidence below
@@ -39,6 +40,7 @@ Do not copy a local checkout path into this public file. Recheck source drift at
 | S04 | done | [Configuration and registry](slices/S04.md) |
 | S05 | done | [Tag sets](slices/S05.md) |
 | S06 | done | [Custom tagged assets](slices/S06.md) |
+| R01 | planned | [Voice revision of authored pages](slices/R01.md) |
 | S07 | planned | [Runtime containers](slices/S07.md) |
 | S08 | planned | [Events and observers](slices/S08.md) |
 | S09 | planned | [Boolean queries](slices/S09.md) |

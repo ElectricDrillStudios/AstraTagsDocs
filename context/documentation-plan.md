@@ -41,6 +41,7 @@ Paths below are relative to `DocFx/MD/` unless noted otherwise. Each linked card
 | [S04](slices/S04.md) | `workflows/package-configuration.md` | S03 | High | A user configures editor tooling and a registry available at runtime |
 | [S05](slices/S05.md) | `workflows/tag-sets.md` | S03, S04 | Medium | Examples distinguish exact membership, hierarchical matches, and set operations |
 | [S06](slices/S06.md) | `workflows/taggable-assets.md` | S05 | Medium | A custom asset exposes tags to the editor tools |
+| [R01](slices/R01.md) | Voice revision of the pages from S02 through S06 | S01 through S06 | High | Every authored page follows the first-time-reader rules, with no verified fact lost |
 | [S07](slices/S07.md) | `workflows/runtime-containers.md` | S04, S05 | Medium | Releasing one of two grants keeps a tag active until the last grant ends |
 | [S08](slices/S08.md) | `workflows/events-and-observers.md` | S07 | Medium | A user distinguishes count changes, presence changes, and observer transitions |
 | [S09](slices/S09.md) | `workflows/tag-queries.md`; query-observer addition to S08 | S05, S08 | High | The same condition can be configured in the Inspector and built in C# |
@@ -55,6 +56,8 @@ Paths below are relative to `DocFx/MD/` unless noted otherwise. Each linked card
 | [S18](slices/S18.md) | `samples/stress-test.md` | S15, S17 | Medium | A user can run the stress test and interpret each measured phase |
 | [S19](slices/S19.md) | `limitations.md`, `changelog.md`, `migration-guide.md` | S02 through S18 | High | Version availability and compatibility are explained without invented releases or bridges |
 | [S20](slices/S20.md) | Integrated editorial, link, build, and API review | S01 through S19 | High | The complete manual is navigable and all verification gaps are accounted for |
+
+R01 is a revision slice added on 2026-10-29 after the maintainer's review of the introduction, outside the 20-slice baseline. It runs before S07. Slices from S07 on write their pages under the first-time-reader rules and run the reader test themselves.
 
 Use numeric order by default. If a slice is blocked, another may run only when all its listed dependencies are done. Stay within one slice in the session. An interrupted session resumes its unfinished slice before advancing, unless the state records a genuine external block. Do not quietly expand scope or erase incomplete work to make a slice appear finished.
 
