@@ -26,6 +26,8 @@ Values in the unconfigured template are examples. Use the actual configured pack
 
 `astra-docs.json` identifies source; it does not guarantee a local checkout or grant access. If the required source is unavailable, state the verification gap and request its location or a relevant excerpt. Do not guess a machine-specific path, infer behavior from an old page alone, or copy private source into this public repository.
 
+Read source to confirm what the reader needs to know, not to document its mechanics. Verified details that are not needed to use the package stay in `context/package-notes.md` or the coverage records, not on introduction or overview pages.
+
 ## Practical lookup guide
 
 Inspect these locations when they exist; package layouts can differ:

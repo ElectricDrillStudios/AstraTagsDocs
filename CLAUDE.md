@@ -15,6 +15,7 @@ Read the documents required by the task before making changes; they are not auto
 
 - Converse with the user in **Italian**; write documentation and repository instructions in **English**
 - Preserve the shared style guide's practical writing rules
+- For introduction, overview, and concept pages, follow *Writing for a First-Time Reader* in the style guide and the tone reference in `context/package-notes.md`. Such a page is not done when its facts are verified; it is done after the reader test
 - Verify names, behavior, Inspector labels, Unity menu paths, examples, and API signatures against the documented package's source
 - If source is unavailable, state what cannot be verified and request the source location or relevant excerpt before making unsupported claims
 - Prefer links to existing explanations over duplication

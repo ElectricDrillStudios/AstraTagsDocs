@@ -78,7 +78,7 @@ At session start:
 
 At session end:
 
-1. Review the page as a new reader taking the named action, and fix missing prerequisites or ambiguous steps
+1. Review the page as a new reader taking the named action, and fix missing prerequisites or ambiguous steps. For introduction, overview, and concept pages, run the style guide's reader test and list in the report which paragraphs it caused to be rewritten
 2. Update navigation and links for the pages actually written
 3. Update source evidence in coverage and any image requirements in the asset register
 4. Append a dated execution report to the card with changed files, inspected commit/symbols, commands/results, gaps, and next steps

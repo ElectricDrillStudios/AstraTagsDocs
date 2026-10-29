@@ -19,11 +19,11 @@
 
 ## Language, Tone, and Register
 
-- Professional, instructional, and technically precise
-- Default to third-person neutral exposition
+- Clear, friendly, and technically precise: a knowledgeable colleague explaining the package, not a specification
+- Address the reader directly ("you", "we") in guides and introductions; third person is fine in reference material
 - Use direct imperative phrasing for guidance when needed
-- Prefer concept -> configuration/details -> example -> caveats/links
-- Keep explanations compact when a cross-reference can carry the detail
+- Prefer concept -> configuration/details -> example -> caveats/links in guides and reference pages
+- Keep explanations compact when a cross-reference can carry the detail. Compact does not mean terse: keep the connecting explanation that makes a concept understandable
 - Use **"Let's"** phrasing naturally for guided walkthroughs and examples
 - Open workflow pages with a brief, natural overview of the task and what the reader will learn; introduce the example before giving instructions, rather than starting with a bare command or a compressed checklist
 - Use parenthetical asides `(like this)` for brief clarifications instead of em-dashes
@@ -34,10 +34,48 @@
 ## Audience and Page Scope
 
 - Write for Unity developers who want to use the package in their projects; explain what they can do, how to do it, and the limits that affect their choices
-- Organize overviews around capabilities and workflows; include implementation details only when they help readers configure, integrate, troubleshoot, or extend the package
+- Organize overviews around capabilities and workflows; include implementation details only when they help readers configure, integrate, troubleshoot, or extend the package, and only on the page that owns that task, never on an introduction
 - Keep Package Contents at the level of the main subsystems, useful editor tools, samples, and documentation, with short descriptions and links to the relevant guides
 - Do not turn Package Contents into an inventory of files, folders, assemblies, editor classes, drawers, or internal helpers; include a path only when readers need it to find or use something
 - Put setup steps, sample-builder commands, and operational caveats in their dedicated guides and link to them from the overview
+
+---
+
+## Writing for a First-Time Reader
+
+Introduction, overview, and concept pages are read by someone who has never seen the package. Apply these rules to them first, and to every other page as far as they fit:
+
+- Say what a thing is, why the reader would want it, and only then how it behaves
+- Define before use: introduce every term in plain language before a sentence depends on it; otherwise link to its definition or rephrase
+- Give every concept a concrete example or analogy, preferably one running example across the page
+- Prefer flowing paragraphs to a sequence of one-claim sentences that all share the "X does A. Y does B." shape
+- Prefer positive statements. Do not chain "does not / is not / without" to pre-empt misreadings: state the one clear thing, and put a correction in a callout where the mistake is likely
+- Name the concrete thing (which asset, window, or step) instead of generic nouns such as tooling, resource, lookup, mechanism, or lifecycle
+- Introduction and overview pages describe concepts and what the reader will do, not mechanisms. Leave out lookup structures, indices, fallbacks, lifecycle rules, serialization details, and editor-versus-runtime internals, and link to the guide that owns them. If a sentence only matters after the reader has configured something, it does not belong there
+- Verifying a fact decides whether a claim is true, not whether it belongs on the page. Facts found during verification go to the guide that owns them
+- Work in two passes: first make the facts correct, then rewrite for flow, moving each verified-but-mechanical fact to the page that owns it
+
+For example (placeholder names), instead of:
+
+```markdown
+The catalog selected in the editor settings steers editor tooling. A runtime catalog must also be available to the running game; selecting one in Project Settings alone does not provide that resource. Follow Package Configuration to create the resource, reconcile its entries, and verify runtime lookups.
+```
+
+write:
+
+```markdown
+The package keeps a catalog, an asset that lists everything your project defines, so it can find items quickly while the game runs. You create it once per project, and [Package Configuration](workflows/package-configuration.md) walks you through it.
+```
+
+### Reader test
+
+Before finishing an introduction, overview, or concept page, reread each paragraph as someone who has read only the text above it. Rewrite until:
+
+1. every term was already defined or is linked
+2. no sentence needs knowledge of setup the reader has not done yet
+3. the "why" comes before the "what"
+4. no run of consecutive sentences shares the same rigid shape
+5. no sentence relies on a negation to be understood
 
 ---
 
@@ -52,7 +90,7 @@
 | Version availability tags | `*🏷️ Version X.Y.Z+*` or inline `(🏷️*vX.Y.Z+*)` | `(🏷️*v1.4.0+*)` |
 
 - Apply inline code to programmatic identifiers in prose, headings, tables, and link labels, including Unity types such as `ScriptableObject` and `MonoBehaviour`
-- When an identifier is linked, put the backticks inside the link label: `` [`GameTagSO`](xref:ElectricDrill.AstraTags.GameTagSO) ``; keep the destination outside the code span
+- When an identifier is linked, put the backticks inside the link label: `` [`TypeName`](xref:Namespace.TypeName) ``; keep the destination outside the code span
 - Do not combine bold and inline code for the same token
 - Use the exact casing used by Unity, the package, or the source code
 
@@ -65,7 +103,7 @@
 | Same-file anchor | `[Title](#anchor)` | `[Game Event Generators](#game-event-generators)` |
 | Other file in the same documentation folder | `[Text](filename.md)` | `[Samples](samples.md)` |
 | Other file + anchor | `[Text](filename.md#anchor)` | `[Understanding Stat Modifier Types](workflows.md#understanding-stat-modifier-types)` |
-| API xref | `` [`TypeName`](xref:Namespace.TypeName) `` | `` [`GameTagSO`](xref:ElectricDrill.AstraTags.GameTagSO) `` |
+| API xref | `` [`TypeName`](xref:Namespace.TypeName) `` | `` [`TypeName`](xref:Namespace.TypeName) `` |
 | External URL | Plain URL when appropriate, or standard markdown link when readability benefits | `https://discord.gg/nJVRMkGrZg` |
 
 - Prefer a local cross-reference over repeating a full explanation
@@ -246,5 +284,6 @@ Avoid HTML when standard markdown is sufficient.
 - Do not use `#####` headings for labels like pros, cons, or notes
 - Do not use raw filesystem paths when you actually mean Unity menu paths
 - Do not duplicate explanations that already exist elsewhere in the docs
+- Do not consider an introduction, overview, or concept page finished because its facts are verified; it is finished after the reader test
 - Do not hand-edit generated site output under `docs/` or generated API metadata under `api/`
 - Do not introduce naming, menu labels, or API signatures that are not confirmed by the package source

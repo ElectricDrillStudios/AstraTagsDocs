@@ -45,6 +45,15 @@ The maintainer's editorial review on 2026-10-16 established Astra Framework's Pa
 
 Use inline code for programmatic identifiers, including linked labels (`` [`GameTagSO`](xref:ElectricDrill.AstraTags.GameTagSO) ``). Open workflows with a natural overview of the example and topics covered; the [creating-tags introduction](../DocFx/MD/workflows/creating-tags.md) is the revised reference. These preferences supplement the shared style guide and must survive template synchronization.
 
+The maintainer's review on 2026-10-29 found the first [introduction](../DocFx/MD/introduction.md) too sterile and too mechanical for a first-time reader. The shared style guide's *Writing for a First-Time Reader* section and reader test now apply to the introduction and to every concept or overview page. The rewritten introduction is the reference for this package's voice.
+
+## Tone reference and running examples
+
+- **Tone reference:** the sibling repository's `AstraRpgFrameworkDocs/DocFx/MD/introduction.md`. Copy its voice: a plain definition for each concept followed by a concrete example, "we" and "let's", and no implementation caveats. Do not copy its structure; its "Key advantages" list is marketing, not explanation
+- **Running examples:** `Damage.Fire.Burn` for hierarchy and matching, `State.Stunned` for runtime grants from several sources, and an `Ability.Magic` tag required together with an absent `State.Silenced` tag for queries
+- **Registry on the introduction:** present it in one or two sentences as an asset the reader creates once per project, which lists the project's tags and lets the package find them quickly. Keep everything else (the `Resources` location, editor versus runtime selection, fallback matching, indices, ancestor masks, generated accessors) in [Package Configuration and the Registry](../DocFx/MD/workflows/package-configuration.md) and the workflows that own it
+- **Runtime index:** mention it on the introduction only as far as a reader must avoid storing it in saved data; the mechanics belong to the serialization guide
+
 ## Session hand-off
 
 One AI session handles one slice. Use the [state](documentation-state.md) to select the next slice and its card to determine inputs, outputs, exclusions, and acceptance. Update the [coverage matrix](documentation-coverage.md) and [image register](documentation-assets.md) with evidence, then record the result in the slice card and state. Do not rely on chat history for the next session.
