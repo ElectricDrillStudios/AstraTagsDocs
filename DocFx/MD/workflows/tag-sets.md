@@ -1,6 +1,6 @@
 # Tag sets and matching
 
-A [`TagSet`](xref:ElectricDrill.AstraTags.TagSet) stores distinct tag asset references. Use it to check literal assignments, accept tags through their ancestors, or combine stored assignments with set operations. Matching never inserts inferred ancestors into the collection.
+In this guide we use a [`TagSet`](xref:ElectricDrill.AstraTags.TagSet) to keep a group of tags on an object and ask questions about them. A set stores distinct references to tag assets, so you can check which tags are literally assigned, accept tags through their ancestors, or combine assignments with set operations. The set holds only the tags you assign: the ancestors that make a hierarchical match succeed are worked out when you ask, and are never added to the collection.
 
 ## Before starting
 
@@ -13,7 +13,7 @@ Complete [Creating and Organizing Tags](creating-tags.md) to create this hierarc
 | `burn` | `Damage.Fire.Burn` | `fire` |
 | `ice` | `Damage.Ice` | `damage` |
 
-These names refer to the actual `GameTagSO` assets, not strings or generated accessors. Direct references work without a registry. The runnable matching example obtains them through the registry configured in [Package Configuration and the Registry](package-configuration.md).
+In the code below, these names stand for the actual `GameTagSO` assets (they are not strings or generated accessors). Direct references work without a registry, and the runnable matching example obtains them through the registry configured in [Package Configuration and the Registry](package-configuration.md).
 
 ## Store a set in a serialized field
 
@@ -31,15 +31,15 @@ public sealed class TagSetFieldExample : MonoBehaviour
 }
 ```
 
-Expand **Tags** in the Inspector, add a list entry with **+**, and assign the `Burn` asset. The expanded list also provides **+ Add Multiple Tags…** for selecting several tags. An Inspector assignment stores a reference to an existing tag asset; it does not create a tag or add the tag's parents as entries.
+Expand **Tags** in the Inspector, add a list entry with **+**, and assign the `Burn` asset. The expanded list also provides **+ Add Multiple Tags…** for selecting several tags. The assignment stores just a reference to the existing tag asset, so no tag is created and the tag's parents are not added as entries.
 
 Follow [Integrating Custom Tagged Assets](taggable-assets.md) to expose the stored set through `ITagged` for editable headers and asset discovery.
 
-`new TagSet()` creates an empty set. `new TagSet(burn)` stores one tag, and `new TagSet(new[] { burn, ice })` stores a sequence. The sequence constructor skips nulls and duplicate references while retaining the first occurrence's position. `new TagSet(existingSet)` copies the entries into a separate collection, retaining references to the same tag assets. Assigning `var copy = existingSet` shares the same mutable set instead.
+In code, there are a few ways to create a set. `new TagSet()` creates an empty set. `new TagSet(burn)` stores one tag, and `new TagSet(new[] { burn, ice })` stores a sequence. The sequence constructor skips nulls and duplicate references while retaining the first occurrence's position. `new TagSet(existingSet)` copies the entries into a separate collection, retaining references to the same tag assets. Assigning `var copy = existingSet` shares the same mutable set instead.
 
 ## Choose exact or hierarchical membership
 
-`ContainsExact(tag)` checks whether the tag asset is explicitly stored. `Contains(tag)` checks whether a stored tag is the requested tag or a descendant of it. `HasAny(GameTagSO)` is an alias for `Contains`, and `HasNone(GameTagSO)` returns its inverse. There is no single-tag `HasAll` overload; use `Contains` for one requirement.
+The first choice when you ask a set a question is whether you want the literal tags only, or also their ancestors. `ContainsExact(tag)` checks whether the tag asset is explicitly stored. `Contains(tag)` checks whether a stored tag is the requested tag or a descendant of it. `HasAny(GameTagSO)` is an alias for `Contains`, and `HasNone(GameTagSO)` returns its inverse. There is no single-tag `HasAll` overload; use `Contains` for one requirement.
 
 For `owned = new TagSet(burn)`:
 
@@ -53,11 +53,11 @@ For `owned = new TagSet(burn)`:
 | `new TagSet(fire).Contains(burn)` | `false` | Holding a parent does not imply a particular child |
 | `owned.Count` | `1` | Inferred ancestors are not stored entries |
 
-Checks use tag references and parent relationships. A separate asset with a similar name or path is not interchangeable with the queried asset.
+Checks compare tag references and follow parent relationships, so a separate asset with a similar name or path counts as a different tag.
 
 ### Match a group of requirements
 
-For set overloads, call `owned.HasAny(query)`, `owned.HasAll(query)`, or `owned.HasNone(query)`. Each entry in `query` is a requirement evaluated hierarchically against `owned`. The direction matters: reversing the sets asks a different question.
+To ask about a group of requirements at once, use the set overloads: `owned.HasAny(query)`, `owned.HasAll(query)`, or `owned.HasNone(query)`. Each entry in `query` is a requirement evaluated hierarchically against `owned`, and the direction matters, because reversing the two sets asks a different question.
 
 For `owned = new TagSet(burn)`:
 
@@ -69,11 +69,11 @@ For `owned = new TagSet(burn)`:
 | Ice | `false` | `false` | `true` |
 | (empty) | `false` | `true` | `true` |
 
-One stored child can satisfy multiple ancestor requirements. `HasAll` does not require a different stored entry for each requirement. These methods have no exact-matching flag; use `ContainsExact` for each literal requirement when that is the intended rule.
+One stored child can satisfy several ancestor requirements: `HasAll` does not need a different stored entry for each requirement. These methods have no exact-matching option, so when you want literal matching, call `ContainsExact` for each requirement.
 
 ### Run the matching example
 
-Save this component as `TagSetMatchingExample.cs`, attach it to a scene `GameObject`, and enter Play mode after setting up the four-tag runtime registry. It reads the actual assets from that registry and logs the results above:
+Let's see these results in action. Save this component as `TagSetMatchingExample.cs`, attach it to a scene `GameObject`, and enter Play mode after setting up the four-tag runtime registry. It reads the actual assets from that registry and logs the results above:
 
 ```csharp
 using ElectricDrill.AstraTags;
@@ -120,7 +120,7 @@ The expected values are `True/False` for exact Burn/Fire, `True/False` for match
 
 ### Null and empty inputs
 
-These results apply to an initialized receiving set, including an empty one:
+Queries are often built from data, so it helps to know what null and empty inputs return. These results apply to an initialized receiving set, including an empty one:
 
 | Call | Result |
 |---|---|
@@ -137,7 +137,7 @@ Cast a null literal in `HasAny(null)` and `HasNone(null)` to select the tag or s
 
 ## Modify literal assignments
 
-Mutation operates on stored references. Removing Fire from a set containing only Burn leaves Burn present, so the set continues to match Fire hierarchically.
+Changing a set means changing its stored references, never the inferred ancestors. For example, removing Fire from a set containing only Burn changes nothing: Burn is still present, so the set keeps matching Fire hierarchically.
 
 | Operation | Behavior |
 |---|---|
@@ -148,7 +148,7 @@ Mutation operates on stored references. Removing Fire from a set containing only
 | `ExceptWith(other)` | Removes entries literally present in `other` |
 | `IntersectWith(other)` | Keeps entries literally present in `other`, preserving their relative order |
 
-The three set operations modify the receiving set. They return `void` and do not mutate a separate `other` collection. For each independent operation below, start with stored entries `[Burn, Ice]` and use `other = [Fire, Ice]`:
+The three set operations modify the receiving set and return `void`; the `other` collection is left as it was. For each independent operation below, start with stored entries `[Burn, Ice]` and use `other = [Fire, Ice]`:
 
 | Operation | Resulting stored entries | Explanation |
 |---|---|---|
@@ -173,15 +173,15 @@ Use `foreach (var tag in set)` as in the matching example. It uses [`TagSet.Enum
 
 `Equals(TagSet)` and `Equals(object)` compare literal membership regardless of order. `[Burn, Ice]` equals `[Ice, Burn]` and produces the same hash code. `[Burn]` does not equal `[Burn, Fire]`, even though both match Fire. `[Burn]` also does not equal `[Fire]`. Comparing a set with null using `Equals` returns `false`.
 
-`TagSet` is a class and does not overload `==` or `!=`; those operators compare set object identity. Use `Equals` to compare membership. Membership changes can change `GetHashCode()`, so avoid mutating a set while using it as a dictionary key or hash-set element.
+`TagSet` is a class that leaves `==` and `!=` unchanged, so those operators compare set object identity; use `Equals` to compare membership. Membership changes can change `GetHashCode()`, so avoid mutating a set while using it as a dictionary key or hash-set element.
 
-After Unity deserializes a set, normalization is deferred until an operation needs the stored entries (for example, reading `Count`, accessing `Tags`, or enumerating). It removes null and duplicate tag references, keeping the first occurrence and the order of surviving entries. The deserialization callback marks the collection for this work; it does not prune referenced Unity objects inside the callback. `OnBeforeSerialize` performs no cleanup. Normalization does not collapse child/ancestor pairs: storing both Burn and Fire keeps two distinct entries.
+After Unity deserializes a set, normalization is deferred until an operation needs the stored entries (for example, reading `Count`, accessing `Tags`, or enumerating). It removes null and duplicate tag references, keeping the first occurrence and the order of surviving entries. The deserialization callback marks the collection for this work; it does not prune referenced Unity objects inside the callback. `OnBeforeSerialize` performs no cleanup. Normalization keeps child/ancestor pairs as they are: storing both Burn and Fire results in two distinct entries.
 
 This serialized field stores Unity asset references. Explicit save/network formats are separate APIs: consult [`TagSet`](xref:ElectricDrill.AstraTags.TagSet) for `ToIdArray`, `ToIndexArray`, `LoadIds`, `LoadIndices`, `FromIds`, and `FromIndices`, and [the registry guide](package-configuration.md#signature-and-indices) for the identity/index distinction.
 
 ## Matching with and without a registry
 
-Exact membership, mutation, equality, and enumeration use stored references directly. Hierarchical matching uses a lazily built ancestor mask when an active registry can represent the set and the queried tag. Membership changes and registry signature changes cause the matching mask to rebuild when needed.
+Most of what a set does works directly on its stored references: exact membership, mutation, equality, and enumeration. Hierarchical matching is the one operation that can use the registry. When an active registry can represent both the set and the queried tag, matching uses a lazily built ancestor mask, which is rebuilt when needed after membership changes or registry signature changes. Otherwise it falls back to walking parent references. The table shows which path applies:
 
 | Situation | Matching path |
 |---|---|
@@ -190,8 +190,8 @@ Exact membership, mutation, equality, and enumeration use stored references dire
 | The queried tag is absent from the active registry | Uses the parent walk for that query |
 | Stored and queried tags are registered, with available ancestor masks | Uses the registry-derived mask |
 
-For example, a directly referenced Burn still matches Fire when Burn or Fire is unregistered, through the corresponding fallback above. A missing registry lookup cannot supply such a reference: `registry.Find(...)` returns null for an absent tag, and null inputs follow their own rules.
+For example, a directly referenced Burn still matches Fire when Burn or Fire is unregistered, thanks to the corresponding fallback above. The registry cannot hand you such a tag, though: `registry.Find(...)` returns null for an absent tag, and null inputs follow their own rules.
 
-Keep the full hierarchy, including intermediate ancestors, in the registry and reconcile it after authoring changes. The fallbacks do not validate every gap in an otherwise usable mask: registry mask construction bounds its ancestor walk by registry size. Very sparse registries can therefore omit a distant registered ancestor. The direct fallback also inspects at most 64 nodes per stored entry, including the entry itself. Do not rely on malformed cycles or arbitrarily deep hierarchies matching identically across paths.
+The safest setup is to keep the full hierarchy, including intermediate ancestors, in the registry and to reconcile it after authoring changes. The fallbacks only cover a missing registry or a missing tag; they do not catch every gap in an otherwise usable mask, because registry mask construction bounds its ancestor walk by registry size. A very sparse registry can therefore omit a distant registered ancestor. The direct fallback also inspects at most 64 nodes per stored entry, including the entry itself, so do not rely on malformed cycles or arbitrarily deep hierarchies matching identically across paths.
 
-These paths do not imply constant-time set queries or allocation-free first use. Keep the [registry setup](package-configuration.md) current and use the [API reference](xref:ElectricDrill.AstraTags.TagSet) for complete member signatures.
+None of these paths promises constant-time set queries or allocation-free first use. Keep the [registry setup](package-configuration.md) current and use the [API reference](xref:ElectricDrill.AstraTags.TagSet) for complete member signatures.

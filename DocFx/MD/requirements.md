@@ -1,10 +1,10 @@
 # Requirements
 
-Astra Tags declares **Unity 6.2** (`6000.2`) as its minimum editor version in the package manifest. Compatibility with earlier Unity versions is not established.
+The package manifest declares **Unity 6.2** (`6000.2`) as the minimum editor version for Astra Tags, so use that version or later. Compatibility with earlier Unity versions has not been established.
 
 ## Dependencies
 
-Astra Tags is a standalone package. Its manifest declares no additional package dependencies, and its runtime assembly references no other custom assemblies.
+Astra Tags is a standalone package: its manifest lists no other packages as dependencies, and its runtime assembly references no other custom assemblies.
 
 | Component | Requirements |
 |---|---|
@@ -13,7 +13,7 @@ Astra Tags is a standalone package. Its manifest declares no additional package 
 | Examples sample | Astra Tags runtime; Unity Editor for the scene builder |
 | Stress Test sample | Astra Tags runtime; Unity Editor for the scene builder |
 
-Astra Framework and Odin Inspector are not required. The sample assembly definitions do not add dependencies on other packages.
+You do not need Astra Framework or Odin Inspector, and the sample assembly definitions add no dependencies on other packages.
 
 See [Relationship to other tag systems](introduction.md#relationship-to-other-tag-systems) for the distinction between Astra Tags and Astra Framework tags.
 

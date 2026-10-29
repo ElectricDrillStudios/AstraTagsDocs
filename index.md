@@ -13,7 +13,7 @@ For example, a tag set containing `Damage.Fire.Burn` also matches `Damage.Fire` 
 - [Installation Instructions](DocFx/MD/installation-instructions.md): install the UPM package and import its optional samples
 - [Introduction](DocFx/MD/introduction.md): learn the vocabulary, matching model, and main package components
 - [Creating and Organizing Tags](DocFx/MD/workflows/creating-tags.md): create a hierarchy and configure tag names, stable identity, and visuals
-- [Package Configuration and the Registry](DocFx/MD/workflows/package-configuration.md): configure editor tools and provide the game's runtime registry
+- [Package Configuration and the Registry](DocFx/MD/workflows/package-configuration.md): set up the registry that lists your project's tags so the running game can find them
 - [Tag Sets and Matching](DocFx/MD/workflows/tag-sets.md): choose exact or hierarchical checks and modify stored assignments
 - [Integrating Custom Tagged Assets](DocFx/MD/workflows/taggable-assets.md): expose serialized tags on custom assets and components to the editor tools
 - [Requirements](DocFx/MD/requirements.md): check the minimum Unity version and package dependencies

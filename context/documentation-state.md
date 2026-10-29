@@ -6,7 +6,8 @@ This is the sole source of slice status. Read it with the [plan](documentation-p
 
 - Last updated: 2026-10-29
 - Active slice: none
-- Next slice: [R01](slices/R01.md) (voice revision of the pages written in S02 through S06 under the first-time-reader rules; inserted on 2026-10-29), then [S07](slices/S07.md) (runtime containers)
+- Next slice: [S07](slices/S07.md) (runtime containers), written under the first-time-reader rules with the reader test
+- Latest slice: [R01](slices/R01.md) (2026-10-29) revised the pages from S02 through S06 and the home page for voice. The preservation check found no lost token (two deliberate link retargets); see the report for two unverified paraphrases (V04) and the DocFX build that could not run on this machine
 - Editorial follow-up (2026-10-29): the introduction was rewritten for first-time readers and now serves as the in-repository voice reference; the shared style guide gained *Writing for a First-Time Reader* with a reader test (template branch `docs/first-time-reader-guidelines`, pending merge). No slice was started
 - Latest editorial follow-up: repository-wide identifier formatting committed separately as `c78beda`; Package Contents now presents user capabilities, sample setup details live in Installation Instructions, and Creating Tags opens with a guided overview. Shared style rules and persistent package notes record these preferences; no new slice was started
 - Editorial progress: 6 of 20 slices done; S06 adds the custom `ITagged` asset/component guide, serialized backing-field/getter requirements, Inspector editing, assignment storage and source-verified discovery scope, with navigation and entry links
@@ -40,7 +41,7 @@ Do not copy a local checkout path into this public file. Recheck source drift at
 | S04 | done | [Configuration and registry](slices/S04.md) |
 | S05 | done | [Tag sets](slices/S05.md) |
 | S06 | done | [Custom tagged assets](slices/S06.md) |
-| R01 | planned | [Voice revision of authored pages](slices/R01.md) |
+| R01 | done | [Voice revision of authored pages](slices/R01.md) |
 | S07 | planned | [Runtime containers](slices/S07.md) |
 | S08 | planned | [Events and observers](slices/S08.md) |
 | S09 | planned | [Boolean queries](slices/S09.md) |
@@ -63,6 +64,7 @@ Do not copy a local checkout path into this public file. Recheck source drift at
 | V01 | Release verification | Authoring questions resolved: pure UPM through the new Unity publisher portal, visible under Packages, with separate Package Manager sample import; contents confirmed by the maintainer. When the actual release artifact is available, install it in a disposable compatible project, run the documented tag/editor checks, import both samples, and verify compilation and builder menus. These interactive checks were not executed during authoring and remain explicit release evidence to collect |
 | V02 | S19 | Resolve the difference between manifest version and Unreleased changes before assigning version-availability labels |
 | V03 | S20 | Recheck source drift and runtime API/member coverage for the assembled manual. S01 checked 307 isolated metadata UIDs (including all authored xrefs); release-host generation and API comparison remain outside this milestone |
+| V04 | S20 | After R01: (a) rebuild the site with DocFX, which needs the Unity project from `astra-docs.json` and generated metadata not present on the authoring machine of 2026-10-29, and confirm 0 errors and exactly five registered missing-image warnings; (b) verify against source two paraphrases that replaced undefined terms: "the project's existing tags" (was "the project's tag catalog") in the creating-tags guide, and the removal of "the editor catalog" in the custom assets guide |
 | F01 | Package maintainer | The package manifest's documentation/changelog URLs use the older host. Record a source-repository follow-up rather than editing private package code here |
 | F02 | All sessions | Restore or reconcile customized home, navigation, and DocFX mappings after any template sync |
 | F03 | Package maintainer | Isolated runtime compilation reports CS0419 for the ambiguous XML cref `Resources.Load` in `TagRegistry.Active`. Correct the XML in package source separately; S01 metadata and site builds pass with warnings treated as errors |
@@ -75,6 +77,8 @@ Do not copy a local checkout path into this public file. Recheck source drift at
 Append precise verification gaps here as they occur. Do not mark a slice blocked just because its future prerequisites have not yet been scheduled.
 
 ## Latest verification evidence
+
+R01 (2026-10-29): editorial revision only; no package source was available or inspected (the `unity_project` path does not exist locally). A token preservation check compared every changed page with `HEAD` (inline code, bold labels, numbers, link targets, headings, code fences, `IMAGE MISSING` comments) and found no loss; two link targets changed deliberately. A local link and anchor audit of `index.md` and all manual pages found 53 links, 0 broken, with only the five registered missing images unresolved. `git diff --check` passes. DocFX was not built (V04). See the [R01 report](slices/R01.md#execution-report-2026-10-29).
 
 Editorial review (2026-10-16): inspected source remains `88fe1b27669aba87dc1f998dbae3088b19954284`, with clean source worktree and matching local HEAD/`main`/`origin/main`; no fetch. Repository-wide Markdown identifier audit completed, including linked type/member labels. DocFX 2.78.5 preview built using unchanged S01 runtime metadata, with zero errors and exactly the same five registered missing-image warnings. Verified rendered inline code, linked identifiers, method labels, and the unchanged heading anchor for the tagged asset example. All local Markdown/HTML links, resources, and anchors pass after moving sample-builder details to Installation Instructions. `git diff --check` passed. No new compilation, metadata generation, Unity execution, screenshots, PDF, publication, or release-host build. See the S02/S03 editorial follow-ups; S07 remains next.
 

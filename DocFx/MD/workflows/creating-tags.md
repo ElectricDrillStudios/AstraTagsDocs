@@ -31,7 +31,7 @@ The resulting hierarchy is:
 | `Burn` | `Damage.Fire` | `Damage.Fire.Burn` |
 | `Ice` | `Damage` | `Damage.Ice` |
 
-Name each asset with its own segment, such as `Burn`, rather than the full dotted path. The hierarchy comes from **Parent**, independently of the folder containing the asset. Moving an asset between project folders does not change that relationship.
+Name each asset with its own segment, such as `Burn`, not the full dotted path. The hierarchy comes from **Parent**, regardless of the folder containing the asset, so moving an asset between project folders leaves the relationship intact.
 
 For `Burn`, enter a **Description** such as “Fire damage applied over time.” The description records the tag's intended meaning; gameplay code decides what the tag does.
 
@@ -52,7 +52,7 @@ Parent changes do not check sibling-name collisions in this Inspector. Before mo
 
 ## Choose valid names
 
-Use the **Name** field in **Identity** to rename an existing asset. The Inspector rename and Tag Manager creation/rename actions check names against the project's tag catalog:
+Use the **Name** field in **Identity** to rename an existing asset. The Inspector rename and Tag Manager creation/rename actions check names against the project's existing tags:
 
 | Name or situation | Result |
 |---|---|
@@ -68,7 +68,7 @@ Use the **Name** field in **Identity** to rename an existing asset. The Inspecto
 Letters, digits, and underscores are accepted without that warning when the name does not start with a digit. Internal whitespace is also accepted; generated identifiers replace it with underscores. Other characters trigger an advisory and are sanitized by code generation. A valid display name is not necessarily the exact generated C# identifier.
 
 > [!NOTE]
-> Direct Project-window creation or renaming does not use all of these checked actions. The tag's validation warns about invalid name syntax but does not rewrite it or enforce sibling uniqueness. Use the package's **Name** field for subsequent renames and check names after imports and parent changes.
+> Creating or renaming a tag directly in the Project window bypasses some of these checked actions: the tag's validation warns about invalid name syntax, but it neither rewrites the name nor enforces sibling uniqueness. Use the package's **Name** field for later renames, and check names after imports and parent changes.
 
 ## Preserve stable identity
 
@@ -85,7 +85,7 @@ Select only the tag being repaired: if multiple tag assets are selected, confirm
 
 ## Configure appearance
 
-Appearance belongs to each tag. Set it on the individual assets whose pills should change; assigning a parent does not copy its visual settings to its children.
+Appearance belongs to each tag: it controls how the tag's colored label, called a pill, looks wherever the Editor displays it. Set it on the individual assets whose pills should change; a child does not inherit its parent's visual settings.
 
 In **Visual**, configure the following fields:
 

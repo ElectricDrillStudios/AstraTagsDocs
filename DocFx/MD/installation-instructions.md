@@ -1,6 +1,6 @@
 # Installation Instructions
 
-Astra Tags uses the Unity Asset Store's UPM distribution route. Install the package through the Package Manager; its runtime and editor content appears under **Packages** in the Project window. Import the optional samples separately when needed.
+Astra Tags is distributed through the Unity Asset Store as a UPM package, so you install it from the Package Manager, and its runtime and editor content then appears under **Packages** in the Project window. The optional samples are imported separately, when you need them.
 
 ## Prerequisites
 
@@ -28,7 +28,7 @@ Use a disposable tag to check that both the runtime assets and editor tools are 
 3. Select a folder under `Assets` in the Project window, then use `Assets > Create > Astra Tags > Tag` to create a test tag
 4. Select the tag and confirm that its Inspector shows its tag configuration
 
-A new project can start with an empty tag hierarchy. The package's installation does not require pre-existing project tags. See the [introduction](introduction.md) for the tag model and [registry configuration](introduction.md#configure-the-registry).
+You can start with an empty tag hierarchy, since installing the package does not need any existing project tags. See the [introduction](introduction.md) for the tag model, and [Package Configuration and the Registry](workflows/package-configuration.md) for the registry setup.
 
 ## Import samples
 
@@ -48,10 +48,10 @@ After importing a sample, its scene-builder menu becomes available:
 | Examples | `Tools > Astra Tags > Samples > Build Examples Scene` | `Assets/AstraTagsExamples/AstraTagsExamples.unity` |
 | Stress Test | `Tools > Astra Tags > Samples > Build Stress Test Scene` | `Assets/AstraTagsStressTest/AstraTagsStressTest.unity` |
 
-Importing the scripts and generating a scene are separate actions. Each builder creates its scene and supporting assets separately from the imported scripts. Save the current scene before using either builder: both create a new scene in single-scene mode.
+Importing the scripts and generating a scene are two separate actions: each builder creates its scene and supporting assets on its own, after the scripts are imported. Save the current scene before using either builder, because both create a new scene in single-scene mode.
 
 ## If a package or sample is missing
 
 If Astra Tags does not appear under **My Assets**, check that the Editor is signed into the account that acquired it and let the package list refresh.
 
-If a sample-builder menu is missing, confirm that the corresponding sample has been imported, then check the Console for compilation errors. Installing Astra Tags alone leaves the optional sample scripts inactive.
+If a sample-builder menu is missing, confirm that the corresponding sample has been imported, then check the Console for compilation errors. The optional sample scripts only become active once you import the sample.

@@ -10,7 +10,7 @@ Astra Tags includes the runtime tagging system, editor tools for working with ta
 | Tag sets | Collections of tag references, with exact and hierarchical matching and set operations | [Tag Sets and Matching](workflows/tag-sets.md) |
 | Runtime containers | Reference-counted tags for gameplay states granted by multiple sources, with events and observers for changes | [Runtime container](introduction.md#runtime-container) |
 | Boolean queries | Conditions that combine tag requirements, alternatives, and exclusions | [Tag query](introduction.md#tag-query) |
-| Registry and configuration | Project-wide tag lookups, runtime indices, and settings for the editor tools | [Package Configuration and the Registry](workflows/package-configuration.md) |
+| Registry and configuration | The registry that lists the project's tags so the package can look them up quickly, plus settings for the editor tools | [Package Configuration and the Registry](workflows/package-configuration.md) |
 
 ## Editor tools
 
