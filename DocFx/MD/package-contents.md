@@ -27,4 +27,3 @@ The package includes two optional samples:
 
 See [Import samples](installation-instructions.md#import-samples) to import either sample and build its scene.
 
-PDF documentation covering the manual and runtime API is planned for the release. It will be prepared after the documentation is complete. The [online API reference](xref:ElectricDrill.AstraTags) is available for type definitions and member signatures.
